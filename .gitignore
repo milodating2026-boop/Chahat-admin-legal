@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+build/
+dist/
+coverage/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# secrets: never commit real env files (the template stays)
+.env*
+!.env.example
+supabase/.env
+supabase/.temp/
+supabase/.branches/
+
+# hosting
+.vercel/
+
+# logs and OS/editor files
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.idea/
