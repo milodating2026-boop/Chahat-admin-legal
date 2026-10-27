@@ -18,7 +18,7 @@ export default function ChildSafetyPage() {
           Chahat is an adults-only service (18+). We prohibit child sexual abuse and exploitation (CSAE) in every form on our
           platform, including child sexual abuse material (CSAM), grooming, sexualised content or conversation involving a
           minor, sextortion of minors, and any attempt to contact or meet minors for sexual or exploitative purposes. This
-          standard applies to profiles, photos, voice intros, messages, voice messages, calls and reports.
+          standard applies to profiles, photos, voice intros, messages, voice messages and reports.
         </p>
       </Section>
 
@@ -26,7 +26,7 @@ export default function ChildSafetyPage() {
         <Bullets
           items={[
             'Members must be 18 or over; the date of birth entered at sign-up is checked by our servers and under-18 dates are rejected. Age is self-declared and we do not check government ID.',
-            'Profile photos are screened by an automated image-moderation service, and our team can review photos and reports.',
+            'Profile photos are screened by an automated image-moderation service, and our team reviews reports.',
             'Accounts we suspect belong to someone under 18 are suspended and, once confirmed, removed.',
           ]}
         />
@@ -46,7 +46,7 @@ export default function ChildSafetyPage() {
         <Bullets
           items={[
             'Remove the content and suspend or remove the account.',
-            'Preserve relevant information as the law requires and report to the competent authorities, including as required under Indian law such as the Protection of Children from Sexual Offences Act, 2012 and the Information Technology Act, 2000.',
+            'Keep the report record and report to the competent authorities, including as required under Indian law such as the Protection of Children from Sexual Offences Act, 2012 and the Information Technology Act, 2000. A report records the reporter, the reported member, a category and note, where in the app it was made (profile or chat) and the time. It does not automatically include a copy of the conversation, and messages are removed when a match ends.',
             'Respond to lawful requests from law enforcement and to notifications from Google Play.',
           ]}
         />

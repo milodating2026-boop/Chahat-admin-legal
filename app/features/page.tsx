@@ -3,8 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  Phone,
-  Video,
+  Heart,
+  MessageCircle,
   UserCheck,
   ShieldAlert,
   Sparkles,
@@ -21,18 +21,18 @@ import { PageBanner } from '@/components/layout/PageBanner';
 export default function FeaturesPage() {
   const featureList = [
     {
-      icon: Phone,
+      icon: Heart,
       color: 'bg-rose-100 text-rose-600',
-      title: 'Private Voice Calls',
-      desc: 'Connect in real-time with crystal-clear voice fidelity. Calls are routed without disclosing either party’s personal mobile number or SIM data.',
-      benefits: ['No phone number shared with the other member', 'HD audio codecs optimized for 4G/5G', 'Mute, speaker, and 1-tap disconnect']
+      title: 'Likes &amp; Matches',
+      desc: 'Like members you are interested in. Members must match before they can chat with each other.',
+      benefits: ['Discover members by city', 'Filter by age range and languages', 'Chat opens after a match']
     },
     {
-      icon: Video,
+      icon: MessageCircle,
       color: 'bg-blue-100 text-blue-600',
-      title: 'Real-Time Live Video Chat',
-      desc: 'Face-to-face conversations. You choose when to answer and when to turn your video on.',
-      benefits: ['You choose when to answer', 'Chat screens block screenshots on Android', 'Instant disconnect & report button']
+      title: 'Private Chat',
+      desc: 'Chat one-to-one with members you have matched with, without sharing your phone number.',
+      benefits: ['Replies and reactions in chat', 'Chat screens block screenshots on Android', 'Report or block from any chat']
     },
     {
       icon: UserCheck,
@@ -44,9 +44,9 @@ export default function FeaturesPage() {
     {
       icon: EyeOff,
       color: 'bg-amber-100 text-amber-600',
-      title: 'Voice Messages and View-Once Photos',
-      desc: 'Send voice messages and view-once photos in chat, and delete messages for yourself or for everyone.',
-      benefits: ['Voice messages in chat', 'View-once photos', 'Delete for me or for everyone']
+      title: 'Voice Messages and Photos',
+      desc: 'Send voice messages and photos in chat, and delete messages for yourself or for everyone.',
+      benefits: ['Voice messages in chat', 'Photos in chat', 'Delete for me or for everyone']
     },
     {
       icon: Languages,
@@ -58,9 +58,9 @@ export default function FeaturesPage() {
     {
       icon: ShieldAlert,
       color: 'bg-red-100 text-red-600',
-      title: '1-Tap Emergency Block & Incident Reporting',
-      desc: 'If anyone behaves inappropriately, violates guidelines, or causes discomfort, you can block them instantly. Blocked users can never view your profile or contact you again.',
-      benefits: ['Immediate communication severance', 'Reports go to our moderators', 'Report from any profile or chat']
+      title: 'Block &amp; Report Controls',
+      desc: 'If anyone behaves inappropriately, violates guidelines, or causes discomfort, you can block them. A blocked member can no longer view your profile or contact you.',
+      benefits: ['Blocking ends your match and chat', 'Reports go to our moderators', 'Report from any profile or chat']
     }
   ];
 

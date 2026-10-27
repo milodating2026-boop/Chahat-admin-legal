@@ -7,6 +7,7 @@ import { Mail, MessageSquare, ShieldCheck, CheckCircle2, Send } from 'lucide-rea
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PublicFooter } from '@/components/layout/PublicFooter';
 import { PageBanner } from '@/components/layout/PageBanner';
+import { OPERATOR } from '@/lib/legal';
 
 export default function SupportPage() {
   const [ticketSubmitted, setTicketSubmitted] = useState(false);
@@ -68,7 +69,7 @@ export default function SupportPage() {
         <div className="bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-6 transition-colors">
           <div className="space-y-1">
             <h3 className="text-xl font-bold text-slate-900 dark:text-white">Send an Inquiry or Incident Report</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Fill in the details below and our team will get back to you within 24 hours.</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Fill in the details below. This opens your email app with the message pre-filled, ready for you to send to our team.</p>
           </div>
 
           {!ticketSubmitted ? (
@@ -108,8 +109,8 @@ export default function SupportPage() {
                   >
                     <option value="moderation">Profile &amp; Account Moderation</option>
                     <option value="report">Report an Abusive Profile</option>
-                    <option value="billing">Coins / Subscription Query</option>
-                    <option value="technical">Audio / Video Call Technical Glitch</option>
+                    <option value="billing">Subscription / Billing Query</option>
+                    <option value="technical">Technical Issue / Bug</option>
                     <option value="account">Account Access &amp; Password</option>
                     <option value="other">Other Inquiry</option>
                   </select>
@@ -144,15 +145,15 @@ export default function SupportPage() {
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm shadow-md transition-colors"
               >
                 <Send className="w-4 h-4" />
-                <span>Submit Support Ticket</span>
+                <span>Open Email Draft</span>
               </button>
             </form>
           ) : (
             <div className="p-8 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-center space-y-3">
               <CheckCircle2 className="w-10 h-10 text-emerald-600 dark:text-emerald-400 mx-auto" />
-              <h4 className="text-lg font-bold text-emerald-950 dark:text-emerald-200">Inquiry Received</h4>
+              <h4 className="text-lg font-bold text-emerald-950 dark:text-emerald-200">Email Draft Opened</h4>
               <p className="text-xs text-emerald-800 dark:text-emerald-300 max-w-md mx-auto">
-                Thank you for contacting us. A confirmation email has been logged, and our team will review your message shortly.
+                Your email app should now show a message addressed to {SUPPORT_EMAIL}. Please press send there. Nothing is sent from this page, and if no email app opened you can write to us at that address directly.
               </p>
               <div className="pt-2">
                 <Link
@@ -166,16 +167,16 @@ export default function SupportPage() {
           )}
         </div>
 
-        {/* Registered Address Card */}
+        {/* Postal Address Card */}
         <div className="bg-slate-900 dark:bg-slate-950 text-white p-8 rounded-3xl border border-slate-800 space-y-4">
-          <h4 className="text-base font-bold text-white">Registered Physical Office &amp; Regulatory Node</h4>
+          <h4 className="text-base font-bold text-white">Postal Address for Legal Notices</h4>
           <p className="text-xs text-slate-400 leading-relaxed max-w-2xl">
             For official legal correspondence, notices under the Information Technology (Intermediary Guidelines) Rules, or postal inquiries:
           </p>
           <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700 text-xs text-slate-300 space-y-1">
-            <p className="font-semibold text-rose-300">Chahat Operations India &bull; Grievance Desk</p>
-            <p>Bodhi Chhapra A.D.O Tola, Gaithihaw Mus. Ghithihaw Aht., PO: Gethihawa, Dist: Kushinagar, Uttar Pradesh, 274802, India</p>
-            <p className="text-slate-400 pt-1">Electronic inquiries: milodating2026@gmail.com (Acknowledgment within 24 hours)</p>
+            <p className="font-semibold text-rose-300">{OPERATOR.name} &bull; Grievance Desk</p>
+            <p>{OPERATOR.address}</p>
+            <p className="text-slate-400 pt-1">Electronic inquiries: {SUPPORT_EMAIL} (acknowledgement target: {OPERATOR.grievanceAcknowledge})</p>
           </div>
         </div>
       </main>

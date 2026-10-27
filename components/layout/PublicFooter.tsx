@@ -13,6 +13,7 @@ import {
   FileText
 } from 'lucide-react';
 import { PLAY_STORE_URL } from './PublicHeader';
+import { OPERATOR } from '@/lib/legal';
 
 export function PublicFooter() {
   return (
@@ -43,7 +44,7 @@ export function PublicFooter() {
             </Link>
 
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-              Chahat is an Indian social platform built exclusively for adults (18+) to connect through respectful text messaging, voice notes, and live 1-on-1 audio and video calls.
+              Chahat is an Indian social platform built exclusively for adults (18+) to connect through respectful text messaging and voice messages.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -149,11 +150,11 @@ export function PublicFooter() {
                   milodating2026@gmail.com
                 </a>
               </p>
-              <p><strong className="text-slate-300">Response SLA:</strong> Within 24 Business Hours</p>
+              <p><strong className="text-slate-300">Acknowledgement target:</strong> {OPERATOR.grievanceAcknowledge}</p>
               <div className="pt-1 border-t border-slate-800 text-[11px] text-slate-400 space-y-1">
                 <span className="font-bold text-slate-300 flex items-center gap-1">
                   <MapPin className="w-3 h-3 text-rose-400 shrink-0" />
-                  Registered Address:
+                  Postal Address:
                 </span>
                 <p className="leading-relaxed text-slate-400">
                   Bodhi Chhapra A.D.O Tola, Gaithihaw Mus. Ghithihaw Aht., PO: Gethihawa, Dist: Kushinagar, Uttar Pradesh, 274802, India

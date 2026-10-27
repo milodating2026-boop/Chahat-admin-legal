@@ -11,6 +11,7 @@ import {
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PublicFooter } from '@/components/layout/PublicFooter';
 import { PageBanner } from '@/components/layout/PageBanner';
+import { OPERATOR } from '@/lib/legal';
 
 export default function SafetyPage() {
   return (
@@ -37,7 +38,7 @@ export default function SafetyPage() {
           </h2>
 
           <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-            Every member engaging in conversations on Chahat must adhere to strict profile guidelines. Profile photos are screened by an automated image-moderation service, and our safety team reviews reports and may review photos and accounts to prevent impersonation, copyrighted media, unauthorized advertisements, and dishonest actors.
+            Every member engaging in conversations on Chahat must adhere to strict profile guidelines. Profile photos are screened by an automated image-moderation service for explicit and violent content, and our safety team reviews member reports and can suspend accounts that break our rules, including impersonation, unauthorized advertisements and dishonest behaviour.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
@@ -54,7 +55,7 @@ export default function SafetyPage() {
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-1.5">
               <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Step 3</span>
               <h4 className="text-sm font-bold text-slate-900 dark:text-white">Human Team Audit</h4>
-              <p className="text-xs text-slate-600 dark:text-slate-400">Our safety team reviews flagged accounts and user reports. We have not published fixed review times.</p>
+              <p className="text-xs text-slate-600 dark:text-slate-400">Our safety team reviews user reports. We have not published fixed review times.</p>
             </div>
           </div>
         </section>
@@ -99,8 +100,8 @@ export default function SafetyPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2 text-xs">
             <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1">
               <span className="text-slate-400">Designated Grievance Officer:</span>
-              <p className="font-semibold text-white text-sm">Legal &amp; Trust Safety Desk</p>
-              <p className="text-slate-300">Chahat Operations India</p>
+              <p className="font-semibold text-white text-sm">{OPERATOR.grievanceOfficerDesignation}</p>
+              <p className="text-slate-300">{OPERATOR.name}</p>
             </div>
             <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1">
               <span className="text-slate-400">Official Electronic Contact:</span>
@@ -110,9 +111,9 @@ export default function SafetyPage() {
               <p className="text-slate-300">Acknowledgment target: 24 hours (to be confirmed by Chahat)</p>
             </div>
             <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700 space-y-1">
-              <span className="text-slate-400">Registered Office Address:</span>
+              <span className="text-slate-400">Postal Address:</span>
               <p className="font-medium text-slate-300 text-xs leading-relaxed">
-                Bodhi Chhapra A.D.O Tola, Gaithihaw Mus. Ghithihaw Aht., PO: Gethihawa, Dist: Kushinagar, Uttar Pradesh, 274802, India
+                {OPERATOR.address}
               </p>
             </div>
           </div>

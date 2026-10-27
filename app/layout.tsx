@@ -4,7 +4,7 @@ import { ThemeProvider } from '@/components/theme/ThemeProvider';
 
 export const metadata: Metadata = {
   title: 'Chahat — Online Friendship App | Real People, Real Connections',
-  description: 'Chahat is a social app for adult friendships, 1-on-1 voice and video calls, and chat across India.',
+  description: 'Chahat is a social app for adult friendships and chat across India.',
   openGraph: {
     title: 'Chahat — Online Friendship App',
     description: 'Real adult friendship and safe conversations across India.',

@@ -22,7 +22,7 @@ export default function CommunityGuidelinesPage() {
 
       <Section n={2} title="Respect boundaries and consent">
         <p>
-          If someone does not want to keep chatting, calling or sharing photos or voice notes, stop immediately. Repeated
+          If someone does not want to keep chatting or sharing photos or voice messages, stop immediately. Repeated
           unwanted messages, pressure or aggressive demands can lead to suspension.
         </p>
       </Section>
@@ -42,7 +42,7 @@ export default function CommunityGuidelinesPage() {
         <Bullets
           items={[
             <span key="1"><strong className={strong}>Child sexual abuse and exploitation (CSAE).</strong> Any sexual or exploitative content, grooming, solicitation or sexualised reference involving anyone under 18 is banned. See our <Link href="/child-safety" className={link}>Child Safety Standards</Link>.</span>,
-            <span key="2"><strong className={strong}>Non-consensual sexual content.</strong> Unsolicited explicit images, exposure on video calls, sextortion, or threats to share private media.</span>,
+            <span key="2"><strong className={strong}>Non-consensual sexual content.</strong> Unsolicited explicit images, sextortion, or threats to share private media.</span>,
             <span key="3"><strong className={strong}>Sexual services and compensated arrangements.</strong> Escort or sex-for-payment offers and any arrangement where money or gifts are expected in return for companionship or sex.</span>,
             <span key="4"><strong className={strong}>Hate and harassment.</strong> Content that attacks people for religion, caste, race, ethnicity, disability, gender or sexual orientation, and stalking, threats or intimidation.</span>,
             <span key="5"><strong className={strong}>Scams and extortion.</strong> Romance scams, fake emergencies, blackmail and fraud.</span>,
@@ -51,11 +51,11 @@ export default function CommunityGuidelinesPage() {
         />
       </Section>
 
-      <Section n={5} title="Photos and calls">
+      <Section n={5} title="Photos and private content">
         <p>
           Profile photos must show you and must not contain nudity, minors other than as incidental background, violence or
-          others&rsquo; private information. Photos are screened by an automated service and may be reviewed by our team.
-          Do not record, screenshot or share other members&rsquo; private chats, photos or calls without their consent.
+          others&rsquo; private information. Photos are screened by an automated service.
+          Do not record, screenshot or share other members&rsquo; private chats or photos without their consent.
         </p>
       </Section>
 

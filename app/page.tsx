@@ -6,8 +6,7 @@ import Image from 'next/image';
 import {
   Heart,
   Shield,
-  Video,
-  Phone,
+  Mic,
   UserCheck,
   Lock,
   Download,
@@ -30,7 +29,7 @@ export default function HomePage() {
   const faqs = [
     {
       q: 'What is Chahat — Online Friendship App?',
-      a: 'Chahat is a social app designed to help adults (18+) across India connect through conversation. Members can discover people, chat, send voice messages, and (where available in your app version) make 1-on-1 audio and video calls.'
+      a: 'Chahat is a social app designed to help adults (18+) across India connect through conversation. Members can discover people, match, chat, and send voice messages.'
     },
     {
       q: 'Who can use Chahat? Is there an age requirement?',
@@ -38,11 +37,11 @@ export default function HomePage() {
     },
     {
       q: 'How does Profile Moderation work?',
-      a: 'To maintain a genuine and respectful community, profile photos are screened by an automated image-moderation service, and our moderation team reviews reports and may review photos and accounts to enforce our Community Guidelines.'
+      a: 'To maintain a genuine and respectful community, profile photos are screened by an automated image-moderation service, and our moderation team reviews member reports and can suspend accounts that break our Community Guidelines.'
     },
     {
-      q: 'Are my audio and video calls private?',
-      a: 'Calls are carried by a third-party real-time provider (Agora). We have not claimed end-to-end encryption, and Chahat does not itself record call audio or video. The mobile app also includes screen-capture protection.'
+      q: 'Can I make voice or video calls on Chahat?',
+      a: 'No. Calling is not currently available in the app. You can chat and send voice messages with members you have matched with.'
     },
     {
       q: 'How do I submit an account or data deletion request?',
@@ -77,7 +76,7 @@ export default function HomePage() {
                 </h1>
 
                 <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl">
-                  Chahat connects adult friends through moderated profiles, 1-on-1 audio calling, and live video chats in a respectful, harassment-free environment.
+                  Chahat connects adult friends through one-to-one chat and voice messages, with automatically screened profile photos and built-in block and report tools.
                 </p>
 
                 {/* Primary CTA Buttons */}
@@ -104,16 +103,16 @@ export default function HomePage() {
                 {/* Trust Highlights */}
                 <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200 dark:border-slate-800">
                   <div className="space-y-1">
-                    <p className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">100%</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Moderated Profiles</p>
+                    <p className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Screened</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Profile Photos (Automated)</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-xl sm:text-2xl font-extrabold text-rose-600 dark:text-rose-400">Strictly 18+</p>
                     <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Adults Only</p>
                   </div>
                   <div className="space-y-1">
-                    <p className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Live</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Live 1-on-1 Calls</p>
+                    <p className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">In-app</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Block &amp; Report Tools</p>
                   </div>
                 </div>
               </div>
@@ -146,10 +145,10 @@ export default function HomePage() {
                       <span>Built for Safe Interaction:</span>
                     </div>
                     <ul className="space-y-1.5 text-[11px] text-slate-300">
-                      <li>&bull; Active photo and profile moderation</li>
+                      <li>&bull; Automated profile photo screening</li>
                       <li>&bull; Screenshot blocking in chats (Android)</li>
-                      <li>&bull; Zero minors permitted (18+ only)</li>
-                      <li>&bull; 1-tap reporting and blocking</li>
+                      <li>&bull; Adults only (18+, age self-declared)</li>
+                      <li>&bull; Reporting and blocking from chats and profiles</li>
                     </ul>
                   </div>
 
@@ -241,21 +240,21 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 transition-colors">
                 <div className="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center">
-                  <Phone className="w-5 h-5" />
+                  <Mic className="w-5 h-5" />
                 </div>
-                <h4 className="text-base font-bold text-slate-900 dark:text-white">Direct Voice Calling</h4>
+                <h4 className="text-base font-bold text-slate-900 dark:text-white">Voice Messages</h4>
                 <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Connect over high-quality audio calls without sharing personal telephone numbers or external social media profiles.
+                  Send voice messages in chat with members you have matched with, without sharing your phone number.
                 </p>
               </div>
 
               <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3 transition-colors">
                 <div className="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center">
-                  <Video className="w-5 h-5" />
+                  <Heart className="w-5 h-5" />
                 </div>
-                <h4 className="text-base font-bold text-slate-900 dark:text-white">Live Video Chat</h4>
+                <h4 className="text-base font-bold text-slate-900 dark:text-white">Likes &amp; Matches</h4>
                 <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Face-to-face video calling with preview safeguards. Calls are carried by a third-party provider and are not recorded by Chahat.
+                  Like members you are interested in. Members must match before they can chat with each other.
                 </p>
               </div>
 
@@ -265,7 +264,7 @@ export default function HomePage() {
                 </div>
                 <h4 className="text-base font-bold text-slate-900 dark:text-white">Photo &amp; Profile Moderation</h4>
                 <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Active screening ensures community photos adhere to quality standards and prohibit impersonation or prohibited content.
+                  Profile photos are screened automatically for explicit or violent content before they are shown to other members.
                 </p>
               </div>
 
@@ -285,7 +284,7 @@ export default function HomePage() {
                 </div>
                 <h4 className="text-base font-bold text-slate-900 dark:text-white">Incident Reporting</h4>
                 <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  1-tap reporting sends flagged interactions to our moderators, who can suspend accounts.
+                  Reports made from a profile or chat go to our moderators, who can suspend accounts.
                 </p>
               </div>
 
@@ -423,7 +422,7 @@ export default function HomePage() {
                   </div>
                   <h4 className="text-base font-bold text-slate-900 dark:text-white">Safety Standards &amp; SLA</h4>
                   <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Our commitment to 24-hour grievance redressal and active community safety enforcement.
+                    How we handle grievances and enforce our community safety rules.
                   </p>
                 </div>
                 <div className="pt-4 flex items-center gap-1.5 text-xs font-bold text-rose-600 dark:text-rose-400">

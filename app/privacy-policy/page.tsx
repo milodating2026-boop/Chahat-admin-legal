@@ -21,8 +21,8 @@ export default function PrivacyPolicyPage() {
           Contact: <a href={`mailto:${OPERATOR.email}`} className={link}>{OPERATOR.email}</a>.
         </p>
         <p>
-          Chahat is for adults aged 18 and over. Some features (for example voice and video calls, subscriptions, coins,
-          voice messages and push notifications) are switched on per app version and may not be available to you yet. This
+          Chahat is for adults aged 18 and over. Some features (for example subscriptions, voice messages and push
+          notifications) are switched on per app version and may not be available to you yet. This
           policy describes the data handling built into the app; where a feature is not available in your version, the
           related data is not collected.
         </p>
@@ -41,12 +41,11 @@ export default function PrivacyPolicyPage() {
             ['Account', 'Email address and password (handled by Supabase Authentication) or Google sign-in. Your session is kept on your device.', 'Sign-up and login'],
             ['Profile', 'Name, date of birth (used to enforce 18+; only your age is shown to others), gender, who you want to meet, relationship intents, city, bio, work, education, interests, languages, lifestyle and prompt answers.', 'You enter it'],
             ['Photos and voice intro', 'Profile photos and an optional short voice introduction. The app removes embedded location (EXIF/GPS) metadata from photos before upload.', 'You upload it'],
-            ['Verification selfie', 'If you choose to verify, a selfie you take is stored and reviewed by our team.', 'Optional'],
+            ['Verification selfie', 'If you choose to verify, a selfie you take is uploaded and stored privately. It is not shown to other members.', 'Optional'],
             ['Location', 'With your permission, your device location is read only while the app is open. Our server rounds it to a grid of roughly 1 km before storing and does not keep the exact point. Other members see only an approximate distance. You can hide your distance or remove the stored location in Settings.', 'Optional, consent recorded'],
-            ['Messages', 'Text, replies, reactions, photos (including view-once photos) and voice messages you send. Photos and voice files are stored in cloud storage; the other person can read what you send.', 'When you chat'],
+            ['Messages', 'Text, replies, reactions, photos and voice messages you send. Photos and voice files are stored in cloud storage; the other person can read what you send.', 'When you chat'],
             ['Activity', 'Likes, passes, matches, blocks, reports you make or that are made about you, and daily usage limits.', 'While you use the app'],
-            ['Calls', 'A record of each call: participants, type (voice/video), status, timestamps and duration, and any coin charge. Chahat does not record call audio or video.', 'When you call'],
-            ['Purchases', 'Subscriptions and coin purchases go through Google Play. We store order id, product, amount, dates, a hash of the purchase token, your plan and your coin balance and ledger. We do not receive your card or UPI details.', 'When you buy'],
+            ['Purchases', 'Subscriptions go through Google Play. We store order id, product, amount, dates, a hash of the purchase token and your plan. We do not receive your card or UPI details.', 'When you buy'],
             ['Notifications', 'A device push token and your notification choices (including what may show on the lock screen: nothing, sender name, or a short preview).', 'Optional, consent recorded'],
             ['Consents and acceptances', 'Which versions of the Terms and this policy you accepted and when, and your choices for location and push.', 'Sign-up, prompts'],
           ]}
@@ -56,15 +55,16 @@ export default function PrivacyPolicyPage() {
           meet and your photos can reveal sensitive personal information. Share only what you are comfortable with.
         </p>
         <p>
-          <strong className={strong}>Not collected by the app:</strong> your phone number, contacts, call log, SMS, precise
-          location history, government ID documents, or an advertising ID. The app contains no advertising or third-party
+          <strong className={strong}>Not collected by the app:</strong> your phone number, contacts, device call log, SMS, precise
+          location history, government ID documents, or an advertising ID. The app does not currently offer voice or video
+          calling, so no call audio or video is collected. The app contains no advertising or third-party
           analytics/crash-reporting SDKs. (Our hosting and service providers may keep ordinary technical logs, such as IP
           address and timestamps, to run and secure their services.)
         </p>
         <p>
           <strong className={strong}>Device permissions the app requests:</strong> camera (selfie and photos), photos/media
-          (to pick pictures), microphone (voice messages and calls), location while in use (discovery), Bluetooth connect
-          (headsets during calls), notifications, and vibration. You can refuse or revoke any of them in your device settings;
+          (to pick pictures), microphone (voice messages and your voice intro), location while in use (discovery), Bluetooth connect
+          (Bluetooth headset audio), notifications, and vibration. You can refuse or revoke any of them in your device settings;
           the features that need them will then be unavailable, but discovery by city, likes, matches and chat remain.
         </p>
       </Section>
@@ -72,9 +72,9 @@ export default function PrivacyPolicyPage() {
       <Section n={3} title="Why we use your information">
         <Bullets
           items={[
-            'To run the service: create your account, show your profile to eligible members, find matches, deliver messages, send notifications and connect calls.',
+            'To run the service: create your account, show your profile to eligible members, find matches, deliver messages and send notifications.',
             'To keep members safe: enforce the 18+ rule, screen photos, handle reports and blocks, and suspend accounts that break the Community Guidelines. Staff access is limited to authorised moderators and administrators, and their actions are logged.',
-            'To process purchases, verify them with Google Play, apply your entitlements and charge call minutes.',
+            'To process purchases, verify them with Google Play and apply your entitlements.',
             'To meet legal duties and respond to valid legal requests, and to keep proof that you accepted our Terms and this policy.',
           ]}
         />
@@ -89,7 +89,7 @@ export default function PrivacyPolicyPage() {
         <p>
           <strong className={strong}>Other members</strong> see your profile information, photos, approximate distance and
           what you send them. <strong className={strong}>Our staff</strong> (moderators and admins) can see what is needed to
-          review reports, photos and verification selfies.
+          review reports and manage accounts.
         </p>
         <p>
           <strong className={strong}>Service providers</strong> process data on our behalf. Their handling is governed by
@@ -101,14 +101,12 @@ export default function PrivacyPolicyPage() {
             ['Supabase', 'Database, authentication, file storage and server functions', 'Everything you store in the app'],
             ['Google Cloud Vision (SafeSearch)', 'Automated screening of profile photos', 'The photo image'],
             ['Google Sign-In', 'Optional login with Google', 'Your Google account identity (email, name)'],
-            ['Agora', 'Real-time voice/video transport', 'Call audio/video stream and connection data, with your user id'],
             ['Expo push service and Google Firebase Cloud Messaging', 'Delivering Android push notifications', 'Your push token and the notification text'],
-            ['Google Play (Billing and Developer API)', 'Subscriptions and coin purchases, purchase verification', 'Purchase token, product, order details'],
+            ['Google Play (Billing and Developer API)', 'Subscriptions, purchase verification', 'Purchase token, product, order details'],
           ]}
         />
         <p>
-          Calls are carried by Agora; they are not end-to-end encrypted and Chahat does not record them. We may disclose data
-          to authorities where the law requires or to protect people from harm.
+          We may disclose data to authorities where the law requires or to protect people from harm.
         </p>
         <Note>
           <p><strong className={strong}>Transfers outside India.</strong> These providers may process data on servers outside India. We have not yet confirmed each provider&rsquo;s processing locations; this list will be updated when we do.</p>
@@ -129,8 +127,6 @@ export default function PrivacyPolicyPage() {
             ['Messages and chat media (photos, voice)', 'Deleted, including for the other person in your current matches'],
             ['Location and discovery settings', 'Deleted'],
             ['Push tokens and notification settings', 'Deleted'],
-            ['Call records', 'Deleted (this also removes the other person\u2019s history of those calls)'],
-            ['Coin balance and ledger', 'Deleted; unspent coins are lost'],
             ['Terms/Privacy acceptance and consent records', 'Deleted with the account'],
             ['Reports made about or by you', 'Kept; your identity is replaced by a pseudonymous identifier (a hash of your account ID, which is not anonymous because it can be recomputed by anyone who already knows that ID) and free-text report notes may remain'],
             ['Payment records for subscriptions (order id, token hash, amount, dates)', 'Kept, detached from your account'],
@@ -146,7 +142,7 @@ export default function PrivacyPolicyPage() {
         <p>
           <strong className={strong}>Limits you should know about.</strong> Deleting your account does not cancel a Google Play
           subscription: cancel it in Google Play. Image links already issued can keep working until they expire (up to one
-          hour). Messages you deleted for everyone are blanked immediately and their files are removed by a clean-up process.
+          hour). Messages you deleted for everyone are blanked immediately and their files are queued for removal by a clean-up process.
           Files from chats that ended by unmatching or blocking may not yet be cleaned up automatically. We have not verified
           whether our database host keeps backups that hold deleted data for a limited time; if it does, deleted data can
           remain in those backups until they expire. If you cannot sign in, email us and we will help you.

@@ -78,7 +78,7 @@ export default function AboutPage() {
               </div>
               <h4 className="text-lg font-bold text-slate-900">Respect &amp; Consent</h4>
               <p className="text-xs text-slate-600 leading-relaxed">
-                We believe in mutual consent. Members must match before they can chat or call, and you can block or report anyone. Explicit content is prohibited by our Community Guidelines.
+                We believe in mutual consent. Members must match before they can chat, and you can block or report anyone. Explicit content is prohibited by our Community Guidelines.
               </p>
             </div>
 

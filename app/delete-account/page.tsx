@@ -60,7 +60,7 @@ export default function DeleteAccountPage() {
       <main className="flex-1 max-w-2xl w-full mx-auto px-4 py-12 space-y-6">
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs space-y-2 text-slate-600 dark:text-slate-400">
           <p className="font-bold text-slate-900 dark:text-white">Chahat — Online Friendship App (com.chahat.dating)</p>
-          <p><strong>Deleted:</strong> profile, photos and verification selfies, voice intro, matches, likes and blocks, messages and chat media (also removed for the other person), location data, push tokens and settings, call records, coin balance, consent and acceptance records, and your sign-in account.</p>
+          <p><strong>Deleted:</strong> profile, photos and verification selfies, voice intro, matches, likes and blocks, messages and chat media (also removed for the other person), location data, push tokens and settings, consent and acceptance records, and your sign-in account.</p>
           <p><strong>Kept:</strong> reports made about or by you (identity replaced by a pseudonymous identifier, a hash of your account ID that is not anonymous; free-text notes may remain), payment records for subscriptions (detached from your account) and a pseudonymised record that a deletion occurred. We have not yet set fixed retention periods for these; see the <Link href="/privacy-policy" className="underline">Privacy Policy</Link>.</p>
           <p>Deleting your account does not cancel a Google Play subscription. Cached image links can work for up to one hour. We have not verified whether our database host keeps backups containing deleted data for a limited period.</p>
         </div>
@@ -82,7 +82,7 @@ export default function DeleteAccountPage() {
           <div className={card}>
             <div className="flex items-start gap-2 text-rose-700"><Trash2 className="w-5 h-5 shrink-0" /><p className="font-bold">This is permanent and cannot be undone.</p></div>
             <ul className="list-disc pl-5 text-xs space-y-1">
-              <li>Your profile, photos, selfies, matches, chats and chat media (also removed for the other person), location, call records, coins and sign-in account are deleted.</li>
+              <li>Your profile, photos, selfies, matches, chats and chat media (also removed for the other person), location and sign-in account are deleted.</li>
               <li>Reports about or by you, payment records and a pseudonymised deletion record are kept in reduced form; see the Privacy Policy.</li>
               <li>Cancel any Google Play subscription separately in Google Play.</li>
             </ul>

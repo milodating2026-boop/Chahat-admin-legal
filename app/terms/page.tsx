@@ -46,10 +46,10 @@ export default function TermsPage() {
 
       <Section n={4} title="What the Service is, and its limits">
         <p>
-          Chahat helps adults meet, chat and call. We do not run background checks, do not verify members&rsquo; identity
-          documents, and cannot promise that any member is who they say they are or will behave well. Verification, where
-          offered, is an optional selfie review and is not a guarantee. Be careful with personal details and money, and take
-          normal precautions before meeting anyone in person. Some features (such as calls, subscriptions, coins, voice
+          Chahat helps adults meet and chat. We do not run background checks, do not verify members&rsquo; identity
+          documents, and cannot promise that any member is who they say they are or will behave well. A verified badge,
+          where offered, rests on an optional selfie and is not a guarantee. Be careful with personal details and money, and take
+          normal precautions before meeting anyone in person. Some features (such as subscriptions, voice
           messages and notifications) may be unavailable, limited, changed or withdrawn at any time.
         </p>
       </Section>
@@ -59,7 +59,7 @@ export default function TermsPage() {
           You own what you post (photos, voice intro, messages, profile text). You give us a non-exclusive, worldwide,
           royalty-free licence to store, process, display and deliver it for the purpose of running and securing the Service,
           for as long as it is on the Service. You confirm you have the rights to post it and that it does not breach the law or
-          anyone&rsquo;s rights. Photos may be screened automatically and by our staff, and may be rejected or removed.
+          anyone&rsquo;s rights. Photos are screened automatically and may be rejected or removed.
         </p>
       </Section>
 
@@ -71,7 +71,7 @@ export default function TermsPage() {
             'harass, threaten, stalk, blackmail, or keep contacting someone who has asked you to stop;',
             'impersonate others, use fake photos, or ask members for money, gifts, cryptocurrency or financial details;',
             'create, share, solicit or promote any content that sexualises or endangers anyone under 18, or contact minors;',
-            'screenshot, record or share other members\u2019 private chats, photos or calls without their consent, or try to get around the app\u2019s protections;',
+            'screenshot, record or share other members\u2019 private chats or photos without their consent, or try to get around the app\u2019s protections;',
             'scrape, copy, reverse engineer or interfere with the Service, use bots, or promote products or services;',
             'break any law, or post unlawful, hateful or defamatory content.',
           ]}
@@ -87,12 +87,11 @@ export default function TermsPage() {
         </p>
       </Section>
 
-      <Section n={8} title="Paid features, coins and calls">
+      <Section n={8} title="Paid features">
         <Bullets
           items={[
-            'Subscriptions and coin packs are sold through Google Play and are governed by Google Play\u2019s billing terms. Prices, plans and what each plan includes are shown in the app before you buy.',
+            'Subscriptions are sold through Google Play and are governed by Google Play\u2019s billing terms. Prices, plans and what each plan includes are shown in the app before you buy.',
             'Subscriptions renew according to Google Play until you cancel them in Google Play. Deleting your Chahat account does not cancel a subscription.',
-            'Coins are virtual, have no cash value, cannot be transferred or redeemed for money, and are lost if your account is deleted. Where a call is chargeable, the rate, any free period and who pays are shown in the app before and during the call, and charges are calculated by our servers.',
             'Refunds are handled under Google Play\u2019s refund policies and applicable consumer law. This does not limit any rights you have by law.',
             'If an account is ended for breaking these Terms, unused paid benefits may be forfeited to the extent the law allows.',
           ]}
@@ -101,9 +100,8 @@ export default function TermsPage() {
 
       <Section n={9} title="Third-party services">
         <p>
-          The Service relies on third parties such as Supabase, Google (Play, Sign-In, Cloud Vision), Agora and Expo. Calls are
-          carried by Agora, are not end-to-end encrypted and are not recorded by Chahat. We are not responsible for third-party
-          services outside our control, but we will act on problems we are told about.
+          The Service relies on third parties such as Supabase, Google (Play, Sign-In, Cloud Vision) and Expo. We are not
+          responsible for third-party services outside our control, but we will act on problems we are told about.
         </p>
       </Section>
 
