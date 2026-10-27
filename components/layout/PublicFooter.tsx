@@ -43,7 +43,7 @@ export function PublicFooter() {
             </Link>
 
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-              Chahat is an Indian social platform built exclusively for adults (18+) to connect through verified profiles, respectful text messaging, voice notes, and live 1-on-1 audio and video calls.
+              Chahat is an Indian social platform built exclusively for adults (18+) to connect through respectful text messaging, voice notes, and live 1-on-1 audio and video calls.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -53,7 +53,7 @@ export function PublicFooter() {
               </span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800">
                 <CheckCircle2 className="w-3.5 h-3.5 text-rose-400" />
-                Verified Adult Profiles
+                Adults Only (18+)
               </span>
             </div>
           </div>
@@ -114,6 +114,7 @@ export function PublicFooter() {
                 </Link>
               </li>
               <li><Link href="/community-guidelines" className="hover:text-white transition-colors">Community Guidelines</Link></li>
+              <li><Link href="/child-safety" className="hover:text-white transition-colors">Child Safety Standards</Link></li>
               <li><Link href="/delete-account" className="hover:text-white transition-colors">Delete Account</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
               <li>

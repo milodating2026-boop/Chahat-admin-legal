@@ -1,98 +1,148 @@
 'use client';
 
 import React from 'react';
-import { PublicHeader } from '@/components/layout/PublicHeader';
-import { PublicFooter } from '@/components/layout/PublicFooter';
-import { PageBanner } from '@/components/layout/PageBanner';
+import Link from 'next/link';
+import { LegalShell, Section, Bullets, strong, link } from '@/components/legal/LegalDoc';
+import { APP_NAME, OPERATOR } from '@/lib/legal';
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-150">
-      <PublicHeader />
+    <LegalShell
+      badge="Legal Agreement"
+      title="Terms &amp; Conditions"
+      subtitle="The rules and obligations that apply to your membership and use of Chahat."
+      crumb="Terms & Conditions"
+    >
+      <Section n={1} title="Who these Terms are with, and acceptance">
+        <p>
+          These Terms are an agreement between you and <strong className={strong}>{OPERATOR.name}</strong> ({OPERATOR.address})
+          (&ldquo;Chahat&rdquo;, &ldquo;we&rdquo;) for the {APP_NAME} on Android and this website (the &ldquo;Service&rdquo;). By
+          creating an account, ticking the acceptance box at sign-up or using the Service you agree to these Terms, our{' '}
+          <Link href="/privacy-policy" className={link}>Privacy Policy</Link>, our{' '}
+          <Link href="/community-guidelines" className={link}>Community Guidelines</Link> and our{' '}
+          <Link href="/child-safety" className={link}>Child Safety Standards</Link>. If you do not agree, do not use the Service.
+          This is an electronic record and needs no physical signature.
+        </p>
+      </Section>
 
-      <PageBanner
-        badge="Legal Agreement"
-        title="Terms &amp; Conditions"
-        subtitle="The rules, obligations, and guidelines governing your membership and usage of the Chahat platform."
-        breadcrumbs={[{ label: 'Terms & Conditions' }]}
-      />
+      <Section n={2} title="Eligibility (18+ only)">
+        <p>
+          You must be at least 18 and legally able to enter a contract. You confirm that the date of birth you give is true.
+          We may suspend or remove any account we reasonably believe belongs to someone under 18, or that was opened with false
+          information. You must not use the Service if you are barred by law from doing so.
+        </p>
+      </Section>
 
-      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-        <div className="bg-white dark:bg-slate-900 p-8 sm:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-8 text-sm leading-relaxed text-slate-700 dark:text-slate-300 transition-colors">
-          <div className="flex items-center justify-between pb-6 border-b border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
-            <span>Last Updated: October 2026</span>
-            <span className="font-semibold text-rose-600 dark:text-rose-400">Binding Legal Terms</span>
-          </div>
+      <Section n={3} title="Your account">
+        <Bullets
+          items={[
+            'Keep your login secure and tell us promptly if you suspect misuse. You are responsible for activity on your account.',
+            'One person, one account. Do not create accounts for others or impersonate anyone.',
+            'Keep your profile accurate. Photos must be of you.',
+            'You can delete your account at any time in the app or on our account deletion page; see the Privacy Policy for what is deleted and kept.',
+          ]}
+        />
+      </Section>
 
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="text-rose-600 dark:text-rose-400 font-mono">1.</span> Acceptance of Terms
-            </h2>
-            <p>
-              By downloading, creating an account on, or interacting with Chahat (&ldquo;App&rdquo; or &ldquo;Service&rdquo;), you enter into a legally binding agreement with Chahat Operations. If you do not consent to all clauses herein, you must immediately uninstall the application and cease accessing our servers.
-            </p>
-          </section>
+      <Section n={4} title="What the Service is, and its limits">
+        <p>
+          Chahat helps adults meet, chat and call. We do not run background checks, do not verify members&rsquo; identity
+          documents, and cannot promise that any member is who they say they are or will behave well. Verification, where
+          offered, is an optional selfie review and is not a guarantee. Be careful with personal details and money, and take
+          normal precautions before meeting anyone in person. Some features (such as calls, subscriptions, coins, voice
+          messages and notifications) may be unavailable, limited, changed or withdrawn at any time.
+        </p>
+      </Section>
 
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="text-rose-600 dark:text-rose-400 font-mono">2.</span> Strict Age Eligibility (18+ Only)
-            </h2>
-            <p>
-              You must be at least <strong className="text-slate-900 dark:text-white">18 years of age</strong> to register or participate in any feature on Chahat. By using the Service, you represent and warrant that you possess the full legal capacity to enter into this contract. Any profile found to be created or operated by an individual under 18 years will be immediately and irrevocably terminated.
-            </p>
-          </section>
+      <Section n={5} title="Your content and our licence to it">
+        <p>
+          You own what you post (photos, voice intro, messages, profile text). You give us a non-exclusive, worldwide,
+          royalty-free licence to store, process, display and deliver it for the purpose of running and securing the Service,
+          for as long as it is on the Service. You confirm you have the rights to post it and that it does not breach the law or
+          anyone&rsquo;s rights. Photos may be screened automatically and by our staff, and may be rejected or removed.
+        </p>
+      </Section>
 
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="text-rose-600 dark:text-rose-400 font-mono">3.</span> Prohibited Conduct &amp; Content
-            </h2>
-            <p>Users must not engage in any of the following activities:</p>
-            <ul className="list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-400">
-              <li>
-                <strong className="text-slate-800 dark:text-slate-200">Nudity &amp; Sexual Solicitation:</strong> Transmitting sexually explicit imagery, non-consensual sexual content, escort services, or commercial solicitation.
-              </li>
-              <li>
-                <strong className="text-slate-800 dark:text-slate-200">Harassment &amp; Stalking:</strong> Coercive messaging, intimidation, threats of bodily harm, extortion, or continuous contact after being asked to stop.
-              </li>
-              <li>
-                <strong className="text-slate-800 dark:text-slate-200">Impersonation &amp; Fraud:</strong> Presenting fake photos, misrepresenting identity, or soliciting financial transfers, gifts, or cryptocurrency.
-              </li>
-              <li>
-                <strong className="text-slate-800 dark:text-slate-200">Unauthorized Recording:</strong> Attempting to bypass anti-screenshot protections, screen-recording live video calls, or redistributing private communications without express written consent.
-              </li>
-            </ul>
-          </section>
+      <Section n={6} title="Rules of conduct">
+        <p>You must follow the Community Guidelines. In particular, you must not:</p>
+        <Bullets
+          items={[
+            'post or send nudity, sexually explicit content, non-consensual or intimate images, or ask for or offer sexual services or compensated arrangements;',
+            'harass, threaten, stalk, blackmail, or keep contacting someone who has asked you to stop;',
+            'impersonate others, use fake photos, or ask members for money, gifts, cryptocurrency or financial details;',
+            'create, share, solicit or promote any content that sexualises or endangers anyone under 18, or contact minors;',
+            'screenshot, record or share other members\u2019 private chats, photos or calls without their consent, or try to get around the app\u2019s protections;',
+            'scrape, copy, reverse engineer or interfere with the Service, use bots, or promote products or services;',
+            'break any law, or post unlawful, hateful or defamatory content.',
+          ]}
+        />
+      </Section>
 
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="text-rose-600 dark:text-rose-400 font-mono">4.</span> Virtual Currency &amp; Subscriptions
-            </h2>
-            <p>
-              In-app coins, video chat minute passes, and VIP memberships are processed solely via Google Play In-App Billing. Virtual assets have no cash redemption value and are non-transferable between accounts. Refund requests are handled per Google Play Store consumer policies.
-            </p>
-          </section>
+      <Section n={7} title="Safety, moderation and enforcement">
+        <p>
+          Members can block and report others in the app. We review reports and may remove content, restrict features,
+          suspend or end accounts, and refer matters to the authorities where the law requires. We may act without prior
+          notice where we think it necessary to protect people or the Service; where practicable we will tell you why and you
+          can write to us to ask for a review. A suspended account is not entitled to use the Service while suspended.
+        </p>
+      </Section>
 
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="text-rose-600 dark:text-rose-400 font-mono">5.</span> Account Termination &amp; Disciplinary Action
-            </h2>
-            <p>
-              We reserve the absolute right to suspend, issue warnings to, or permanently ban any account that violates these Terms or our Community Guidelines without prior warning. Suspended accounts forfeit all accumulated virtual assets.
-            </p>
-          </section>
+      <Section n={8} title="Paid features, coins and calls">
+        <Bullets
+          items={[
+            'Subscriptions and coin packs are sold through Google Play and are governed by Google Play\u2019s billing terms. Prices, plans and what each plan includes are shown in the app before you buy.',
+            'Subscriptions renew according to Google Play until you cancel them in Google Play. Deleting your Chahat account does not cancel a subscription.',
+            'Coins are virtual, have no cash value, cannot be transferred or redeemed for money, and are lost if your account is deleted. Where a call is chargeable, the rate, any free period and who pays are shown in the app before and during the call, and charges are calculated by our servers.',
+            'Refunds are handled under Google Play\u2019s refund policies and applicable consumer law. This does not limit any rights you have by law.',
+            'If an account is ended for breaking these Terms, unused paid benefits may be forfeited to the extent the law allows.',
+          ]}
+        />
+      </Section>
 
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="text-rose-600 dark:text-rose-400 font-mono">6.</span> Governing Law &amp; Jurisdiction
-            </h2>
-            <p>
-              These Terms shall be governed by and construed in accordance with the laws of the Republic of India. Any legal dispute or controversy arising from or in connection with the Service shall be subject to the exclusive jurisdiction of the courts of India.
-            </p>
-          </section>
-        </div>
-      </main>
+      <Section n={9} title="Third-party services">
+        <p>
+          The Service relies on third parties such as Supabase, Google (Play, Sign-In, Cloud Vision), Agora and Expo. Calls are
+          carried by Agora, are not end-to-end encrypted and are not recorded by Chahat. We are not responsible for third-party
+          services outside our control, but we will act on problems we are told about.
+        </p>
+      </Section>
 
-      <PublicFooter />
-    </div>
+      <Section n={10} title="Our role as an intermediary and takedown">
+        <p>
+          Chahat hosts content created by members and acts as an intermediary under the Information Technology Act, 2000 and
+          the IT (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021. We act on unlawful content when we have
+          actual knowledge, including by court or government order, and on complaints sent to our Grievance Officer (see the
+          Privacy Policy). Report unlawful content or conduct in the app or at{' '}
+          <a href={`mailto:${OPERATOR.email}`} className={link}>{OPERATOR.email}</a>.
+        </p>
+      </Section>
+
+      <Section n={11} title="Disclaimers and limits of liability">
+        <p>
+          The Service is provided &ldquo;as is&rdquo; and &ldquo;as available&rdquo;. To the extent permitted by law, we do not
+          promise it will be uninterrupted or error-free, and we are not liable for the conduct of members, for meetings
+          between members, or for indirect or consequential loss. Nothing in these Terms excludes liability that cannot be
+          excluded by law, or limits your statutory rights as a consumer.
+        </p>
+      </Section>
+
+      <Section n={12} title="Ending your use">
+        <p>
+          You may stop using the Service and delete your account at any time. We may suspend or end your access for breach of
+          these Terms, for legal reasons, or if we stop offering the Service. Sections that by their nature should continue
+          (such as content licence for removal, liability and governing law) continue after your account ends.
+        </p>
+      </Section>
+
+      <Section n={13} title="Changes, law and contact">
+        <p>
+          We may update these Terms; the date above shows the latest version, and the app may ask you to accept a new version.
+          If you keep using the Service after a change you accept it, but where a change is material we will ask for your
+          fresh acceptance. These Terms are governed by the laws of India and the courts in India have jurisdiction. If any
+          part is held unenforceable the rest continues. Questions and complaints:{' '}
+          <a href={`mailto:${OPERATOR.email}`} className={link}>{OPERATOR.email}</a>.
+        </p>
+      </Section>
+    </LegalShell>
   );
 }

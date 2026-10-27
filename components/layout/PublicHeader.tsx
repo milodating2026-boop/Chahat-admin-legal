@@ -13,7 +13,7 @@ import { ThemeToggle } from '@/components/theme/ThemeProvider';
 
 export const PLAY_STORE_URL =
   (typeof process !== 'undefined' && process.env?.NEXT_PUBLIC_PLAY_STORE_URL) ||
-  'https://play.google.com/store/apps/details?id=com.chahat.friendship';
+  'https://play.google.com/store/apps/details?id=com.chahat.dating';
 
 export function PublicHeader() {
   const pathname = usePathname();

@@ -37,7 +37,7 @@ export default function SafetyPage() {
           </h2>
 
           <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">
-            Every member engaging in conversations on Chahat must adhere to strict profile guidelines. All profile pictures, bios, and interactions are screened by automated filters and our human safety team to prevent impersonation, copyrighted media, unauthorized advertisements, and dishonest actors.
+            Every member engaging in conversations on Chahat must adhere to strict profile guidelines. Profile photos are screened by an automated image-moderation service, and our safety team reviews reports and may review photos and accounts to prevent impersonation, copyrighted media, unauthorized advertisements, and dishonest actors.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
@@ -54,7 +54,7 @@ export default function SafetyPage() {
             <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-1.5">
               <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Step 3</span>
               <h4 className="text-sm font-bold text-slate-900 dark:text-white">Human Team Audit</h4>
-              <p className="text-xs text-slate-600 dark:text-slate-400">Our safety staff manually reviews flagged accounts and user reports around the clock.</p>
+              <p className="text-xs text-slate-600 dark:text-slate-400">Our safety team reviews flagged accounts and user reports. We have not published fixed review times.</p>
             </div>
           </div>
         </section>

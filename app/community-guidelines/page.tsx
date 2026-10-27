@@ -1,59 +1,81 @@
 'use client';
 
 import React from 'react';
-import { PublicHeader } from '@/components/layout/PublicHeader';
-import { PublicFooter } from '@/components/layout/PublicFooter';
-import { PageBanner } from '@/components/layout/PageBanner';
+import Link from 'next/link';
+import { LegalShell, Section, Bullets, strong, link } from '@/components/legal/LegalDoc';
+import { OPERATOR } from '@/lib/legal';
 
 export default function CommunityGuidelinesPage() {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-150">
-      <PublicHeader />
+    <LegalShell
+      badge="Community Standards"
+      title="Community Guidelines"
+      subtitle="The values of respect, consent and safety that every Chahat member agrees to uphold."
+      crumb="Community Guidelines"
+    >
+      <Section n={1} title="Treat everyone with respect">
+        <p>
+          Chahat is for adults (18+) to build friendships and connections. Be kind and courteous. We welcome people of all
+          backgrounds, languages and cultures across India.
+        </p>
+      </Section>
 
-      <PageBanner
-        badge="Community Standards"
-        title="Community Guidelines"
-        subtitle="The values of mutual respect, consent, and safety that every Chahat member agrees to uphold."
-        breadcrumbs={[{ label: 'Community Guidelines' }]}
-      />
+      <Section n={2} title="Respect boundaries and consent">
+        <p>
+          If someone does not want to keep chatting, calling or sharing photos or voice notes, stop immediately. Repeated
+          unwanted messages, pressure or aggressive demands can lead to suspension.
+        </p>
+      </Section>
 
-      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-        <div className="bg-white dark:bg-slate-900 p-8 sm:p-12 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-8 text-sm leading-relaxed text-slate-700 dark:text-slate-300 transition-colors">
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">1. Treat Everyone with Dignity &amp; Respect</h2>
-            <p>
-              Chahat is designed as an inclusive, safe platform for authentic human connection. We welcome individuals of diverse backgrounds, languages, and cultures across India. Treat other members with kindness, courtesy, and empathy.
-            </p>
-          </section>
+      <Section n={3} title="Be real">
+        <Bullets
+          items={[
+            'Use your own photos and honest details. No impersonation, catfishing or fake accounts.',
+            'Do not ask anyone for money, gifts, UPI transfers, bank details or cryptocurrency, and do not pretend to be in an emergency.',
+            'No advertising, promotion or selling of products or services.',
+          ]}
+        />
+      </Section>
 
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">2. Respect Personal Boundaries &amp; Consent</h2>
-            <p>
-              Consent is fundamental. If another member indicates that they do not wish to continue chatting, turn on video, or exchange voice notes, respect their decision immediately. Repeated unwanted messages or aggressive demands will result in account suspension.
-            </p>
-          </section>
+      <Section n={4} title="Zero tolerance">
+        <p>These lead to suspension or removal and, where the law requires, a report to the authorities:</p>
+        <Bullets
+          items={[
+            <span key="1"><strong className={strong}>Child sexual abuse and exploitation (CSAE).</strong> Any sexual or exploitative content, grooming, solicitation or sexualised reference involving anyone under 18 is banned. See our <Link href="/child-safety" className={link}>Child Safety Standards</Link>.</span>,
+            <span key="2"><strong className={strong}>Non-consensual sexual content.</strong> Unsolicited explicit images, exposure on video calls, sextortion, or threats to share private media.</span>,
+            <span key="3"><strong className={strong}>Sexual services and compensated arrangements.</strong> Escort or sex-for-payment offers and any arrangement where money or gifts are expected in return for companionship or sex.</span>,
+            <span key="4"><strong className={strong}>Hate and harassment.</strong> Content that attacks people for religion, caste, race, ethnicity, disability, gender or sexual orientation, and stalking, threats or intimidation.</span>,
+            <span key="5"><strong className={strong}>Scams and extortion.</strong> Romance scams, fake emergencies, blackmail and fraud.</span>,
+            <span key="6"><strong className={strong}>Illegal activity.</strong> Trafficking, drugs, weapons or any unlawful content or conduct.</span>,
+          ]}
+        />
+      </Section>
 
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white text-rose-700 dark:text-rose-400">3. Absolute Zero Tolerance Violations</h2>
-            <p className="font-medium text-slate-900 dark:text-slate-200">
-              The following behaviors result in account suspension and, where the law requires, referral to authorities:
-            </p>
-            <ul className="list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-400">
-              <li><strong className="text-slate-800 dark:text-slate-200">Child Sexual Abuse Material (CSAM):</strong> Any depiction, solicitation, or reference to minors is strictly reported to law enforcement agencies and cybercrime authorities.</li>
-              <li><strong className="text-slate-800 dark:text-slate-200">Non-Consensual Sexual Content:</strong> Transmitting unsolicited explicit photos, exposure during live video calls, or threats to leak private media.</li>
-              <li><strong className="text-slate-800 dark:text-slate-200">Hate Speech &amp; Defamation:</strong> Content promoting hatred or violence based on religion, caste, race, ethnicity, disability, gender, or sexual orientation.</li>
-              <li><strong className="text-slate-800 dark:text-slate-200">Financial Scams &amp; Extortion:</strong> Requesting UPI transfers, bank details, cryptocurrency, or pretending to be in emergency distress.</li>
-            </ul>
-          </section>
+      <Section n={5} title="Photos and calls">
+        <p>
+          Profile photos must show you and must not contain nudity, minors other than as incidental background, violence or
+          others&rsquo; private information. Photos are screened by an automated service and may be reviewed by our team.
+          Do not record, screenshot or share other members&rsquo; private chats, photos or calls without their consent.
+        </p>
+      </Section>
 
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">4. Enforcement</h2>
-            <p className="text-sm text-slate-600 dark:text-slate-400">Reports are reviewed by our moderators. Accounts that break these guidelines can be suspended, which stops messaging, and suspended accounts can be restored if we find a mistake was made. We do not publish a fixed warning or strike schedule.</p>
-          </section>
-        </div>
-      </main>
+      <Section n={6} title="Block and report">
+        <p>
+          Use Block to stop someone contacting you and Report on a profile or conversation to flag a problem. You can also
+          write to <a href={`mailto:${OPERATOR.email}`} className={link}>{OPERATOR.email}</a>. Reports go to our moderation
+          team, who may remove content, restrict features or suspend accounts. We do not publish a fixed warning or strike
+          schedule, and serious violations can lead to immediate suspension.
+        </p>
+      </Section>
 
-      <PublicFooter />
-    </div>
+      <Section n={7} title="Enforcement and review">
+        <p>
+          Suspended accounts cannot message or use paid features while suspended. If you think we made a mistake, email us
+          with the details and we will look again; accounts can be restored where we find an error. Complaints can also go to
+          our Grievance Officer as described in the{' '}
+          <Link href="/privacy-policy" className={link}>Privacy Policy</Link>.
+        </p>
+      </Section>
+    </LegalShell>
   );
 }

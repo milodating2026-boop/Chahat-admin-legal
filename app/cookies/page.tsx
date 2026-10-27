@@ -2,78 +2,64 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Cookie, Shield, CheckCircle2, Lock } from 'lucide-react';
-import { PublicHeader } from '@/components/layout/PublicHeader';
-import { PublicFooter } from '@/components/layout/PublicFooter';
-import { PageBanner } from '@/components/layout/PageBanner';
+import { LegalShell, Section, DataTable, Note, strong, link } from '@/components/legal/LegalDoc';
 
 export default function CookiesPage() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      <PublicHeader />
+    <LegalShell
+      badge="Data Protection"
+      title="Cookies &amp; Tracking Policy"
+      subtitle="What this website stores in your browser and what it does not."
+      crumb="Cookies Policy"
+    >
+      <Section n={1} title="Summary">
+        <p>
+          We checked this website&rsquo;s code. It <strong className={strong}>does not set cookies</strong>, and it does not load
+          advertising, analytics, tracking pixels, social-media widgets, external fonts or any other third-party scripts. It
+          stores two things in your browser&rsquo;s local storage, both strictly necessary to work as you asked. Because nothing
+          else is stored, there is no cookie banner to accept.
+        </p>
+      </Section>
 
-      <PageBanner
-        badge="Data Protection"
-        title="Cookies &amp; Tracking Policy"
-        subtitle="Transparent disclosures on how we utilize cookies and local tokens to secure your sessions."
-        breadcrumbs={[{ label: 'Cookies Policy' }]}
-      />
+      <Section n={2} title="What is stored in your browser">
+        <DataTable
+          head={['Name', 'Purpose', 'When it is set', 'Lifetime']}
+          rows={[
+            [<span key="a" className="font-mono">chahat_theme_mode</span>, 'Remembers your light / dark / system display choice.', 'When you change the theme', 'Until you clear site data'],
+            [<span key="b" className="font-mono">sb-…-auth-token (Supabase)</span>, 'Keeps you signed in on the account-deletion page and the staff admin console, so the page can act for you.', 'Only if you sign in on those pages', 'Until you sign out (the admin console also signs out after 30 minutes idle) or clear site data'],
+          ]}
+        />
+        <p>
+          Neither item is shared with advertisers or used to follow you across sites. Use your browser settings to clear site
+          data at any time; the theme will reset and you will be signed out.
+        </p>
+      </Section>
 
-      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-        <div className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-xs space-y-8 text-sm leading-relaxed text-slate-700">
-          <div className="flex items-center justify-between pb-6 border-b border-slate-200 text-xs text-slate-500">
-            <span>Last Updated: October 2026</span>
-            <span className="font-semibold text-rose-600">Zero Third-Party Advertising Trackers</span>
-          </div>
+      <Section n={3} title="What we do not use">
+        <p>
+          No advertising or behavioural-tracking cookies, no analytics or session-replay tools, no fingerprinting and no data
+          brokers. If we ever add any of these we will update this page first and, where required, ask for your consent
+          before using them.
+        </p>
+      </Section>
 
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-              <span className="text-rose-600 font-mono">1.</span> What Are Cookies &amp; Local Tokens?
-            </h2>
-            <p>
-              Cookies and secure local storage tokens are small text files placed on your browser or device when you navigate our websites or launch the mobile application. They allow the platform to authenticate your identity, remember security preferences, and detect unusual network access patterns.
-            </p>
-          </section>
+      <Section n={4} title="Server logs and hosting">
+        <Note>
+          <p>
+            Like any website, the servers that deliver it (including our hosting provider) receive technical details with each
+            request, such as IP address, browser type and time, and may keep logs to run and secure the site. We have not
+            reviewed the hosting provider&rsquo;s own logging or cookie practices; see its privacy policy for details.
+          </p>
+        </Note>
+      </Section>
 
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-              <span className="text-rose-600 font-mono">2.</span> Categories of Cookies We Use
-            </h2>
-            <div className="space-y-4 pt-2">
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
-                <div className="flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-emerald-600" />
-                  <h4 className="font-bold text-slate-900 text-sm">Essential Authentication Tokens</h4>
-                </div>
-                <p className="text-xs text-slate-600">
-                  Required for you to sign in to your profile and admin portal. These tokens protect your session and expire automatically upon logging out.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
-                <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-blue-600" />
-                  <h4 className="font-bold text-slate-900 text-sm">Security &amp; Fraud Prevention</h4>
-                </div>
-                <p className="text-xs text-slate-600">
-                  Used to recognize brute-force login attempts, unauthorized API calls, and automated bot scrapers trying to harvest member profiles.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          <section className="space-y-3">
-            <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
-              <span className="text-rose-600 font-mono">3.</span> No Behavioral Ad Tracking
-            </h2>
-            <p>
-              Unlike conventional ad-supported social networks, Chahat does <strong>not</strong> install cross-site tracking cookies, behavioral pixel trackers, or third-party data broker identifiers. We never sell your viewing habits or chat metadata to third parties.
-            </p>
-          </section>
-        </div>
-      </main>
-
-      <PublicFooter />
-    </div>
+      <Section n={5} title="The Android app">
+        <p>
+          The mobile app does not use browser cookies. It keeps your sign-in session on your device (in secure storage where available) and
+          contains no advertising or third-party analytics SDKs. What the app collects is described in the{' '}
+          <Link href="/privacy-policy" className={link}>Privacy Policy</Link>.
+        </p>
+      </Section>
+    </LegalShell>
   );
 }

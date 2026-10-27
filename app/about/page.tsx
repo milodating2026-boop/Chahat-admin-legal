@@ -68,7 +68,7 @@ export default function AboutPage() {
               </div>
               <h4 className="text-lg font-bold text-slate-900">Profile &amp; Content Moderation</h4>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Catfishing and anonymous abuse have no place on Chahat. Every profile and media submission is screened by our safety team to ensure respectful communication.
+                Catfishing and anonymous abuse have no place on Chahat. Profile photos are screened automatically, and reports are reviewed by our team, to keep communication respectful.
               </p>
             </div>
 
@@ -78,7 +78,7 @@ export default function AboutPage() {
               </div>
               <h4 className="text-lg font-bold text-slate-900">Respect &amp; Consent</h4>
               <p className="text-xs text-slate-600 leading-relaxed">
-                We believe in mutual consent. Both parties must express interest before voice or video calls can be connected. Unsolicited explicit media is strictly blocked.
+                We believe in mutual consent. Members must match before they can chat or call, and you can block or report anyone. Explicit content is prohibited by our Community Guidelines.
               </p>
             </div>
 

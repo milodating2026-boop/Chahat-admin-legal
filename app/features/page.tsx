@@ -30,37 +30,37 @@ export default function FeaturesPage() {
     {
       icon: Video,
       color: 'bg-blue-100 text-blue-600',
-      title: 'Real-Time Live Video Chat with Blur Shield',
-      desc: 'Experience face-to-face conversations with automated background blur preview. You choose when to turn video on, giving you complete autonomy over your privacy.',
-      benefits: ['Automated blur preview before answering', 'Anti-screenshot detection protocol', 'Instant disconnect & report button']
+      title: 'Real-Time Live Video Chat',
+      desc: 'Face-to-face conversations. You choose when to answer and when to turn your video on.',
+      benefits: ['You choose when to answer', 'Chat screens block screenshots on Android', 'Instant disconnect & report button']
     },
     {
       icon: UserCheck,
       color: 'bg-emerald-100 text-emerald-600',
       title: 'Active Profile &amp; Content Moderation',
-      desc: 'Our moderation standards ensure that every user profile is reviewed, photos adhere to community safety rules, and users are strictly adults over 18.',
-      benefits: ['Human moderator profile audit', 'Immediate fake profile screening', 'Strict 18+ community standards']
+      desc: 'Profile photos are screened, reports are reviewed by our team, and members must be adults over 18.',
+      benefits: ['Automated photo screening', 'Moderator review of reports', 'Strict 18+ community standards']
     },
     {
       icon: EyeOff,
       color: 'bg-amber-100 text-amber-600',
-      title: 'Disappearing Ephemeral Voice Notes',
-      desc: 'Share short audio messages that expire after they are listened to. Keep your chat history tidy and prevent unauthorized redistribution of your voice.',
-      benefits: ['Configurable expiration timers', 'Protected audio storage', 'Prevents external audio extraction']
+      title: 'Voice Messages and View-Once Photos',
+      desc: 'Send voice messages and view-once photos in chat, and delete messages for yourself or for everyone.',
+      benefits: ['Voice messages in chat', 'View-once photos', 'Delete for me or for everyone']
     },
     {
       icon: Languages,
       color: 'bg-purple-100 text-purple-600',
       title: 'Multi-Language Cultural Filters',
-      desc: 'India is diverse, and friendships thrive in your native tongue. Connect with verified friends who speak Hindi, English, Punjabi, Bengali, Marathi, Telugu, Tamil, and more.',
-      benefits: ['Native language compatibility matching', 'Region-specific discussion rooms', 'Respectful multicultural community']
+      desc: 'India is diverse, and friendships thrive in your native tongue. Add the languages you speak to your profile and meet people who share them.',
+      benefits: ['Languages on your profile', 'Discovery by city and distance', 'Respectful multicultural community']
     },
     {
       icon: ShieldAlert,
       color: 'bg-red-100 text-red-600',
       title: '1-Tap Emergency Block & Incident Reporting',
       desc: 'If anyone behaves inappropriately, violates guidelines, or causes discomfort, you can block them instantly. Blocked users can never view your profile or contact you again.',
-      benefits: ['Immediate communication severance', 'Automatic incident escalation to moderator queue', 'Follow-up ticket resolution status']
+      benefits: ['Immediate communication severance', 'Reports go to our moderators', 'Report from any profile or chat']
     }
   ];
 
@@ -105,7 +105,7 @@ export default function FeaturesPage() {
         <div className="bg-white p-8 rounded-3xl border border-slate-200 text-center space-y-4">
           <h3 className="text-xl font-bold text-slate-900">Experience All Features on Android</h3>
           <p className="text-sm text-slate-600 max-w-xl mx-auto">
-            Install the latest version of Chahat from Google Play and start chatting with verified friends today.
+            Install the latest version of Chahat from Google Play and start chatting today.
           </p>
           <div className="pt-2">
             <a

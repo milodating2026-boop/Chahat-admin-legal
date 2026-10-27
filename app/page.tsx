@@ -30,7 +30,7 @@ export default function HomePage() {
   const faqs = [
     {
       q: 'What is Chahat — Online Friendship App?',
-      a: 'Chahat is a verified social platform designed to help adult individuals (18+) across India connect through authentic conversations. Members can discover compatible friends, send voice notes, and make 1-on-1 audio and video calls with verified profiles.'
+      a: 'Chahat is a social app designed to help adults (18+) across India connect through conversation. Members can discover people, chat, send voice messages, and (where available in your app version) make 1-on-1 audio and video calls.'
     },
     {
       q: 'Who can use Chahat? Is there an age requirement?',
@@ -38,7 +38,7 @@ export default function HomePage() {
     },
     {
       q: 'How does Profile Moderation work?',
-      a: 'To maintain a genuine and respectful community, all uploaded profile photos and bios undergo review by our safety and moderation team to ensure authenticity and guideline compliance.'
+      a: 'To maintain a genuine and respectful community, profile photos are screened by an automated image-moderation service, and our moderation team reviews reports and may review photos and accounts to enforce our Community Guidelines.'
     },
     {
       q: 'Are my audio and video calls private?',
@@ -46,11 +46,11 @@ export default function HomePage() {
     },
     {
       q: 'How do I submit an account or data deletion request?',
-      a: 'You can submit a permanent account deletion request anytime through our online Delete Account Portal or within the mobile app settings. In compliance with Google Play Store data policies, queued requests permanently purge personal data.'
+      a: 'You can submit a permanent account deletion request anytime through our online Delete Account Portal or within the mobile app settings. Deletion removes your profile, photos, chats and related data; a few records (for example reports and payment records) are kept in reduced form as described in our Privacy Policy.'
     },
     {
       q: 'How do I contact the Grievance Redressal Officer?',
-      a: 'In accordance with the Information Technology Rules 2021, you can email our Grievance Officer at milodating2026@gmail.com. All inquiries are acknowledged within 24 hours.'
+      a: 'In accordance with the Information Technology Rules 2021, you can email our Grievance Officer at milodating2026@gmail.com. We aim to acknowledge inquiries within 24 hours.'
     }
   ];
 
@@ -147,7 +147,7 @@ export default function HomePage() {
                     </div>
                     <ul className="space-y-1.5 text-[11px] text-slate-300">
                       <li>&bull; Active photo and profile moderation</li>
-                      <li>&bull; Anti-screenshot privacy protection</li>
+                      <li>&bull; Screenshot blocking in chats (Android)</li>
                       <li>&bull; Zero minors permitted (18+ only)</li>
                       <li>&bull; 1-tap reporting and blocking</li>
                     </ul>
@@ -204,7 +204,7 @@ export default function HomePage() {
                   Profile Moderation &amp; Authenticity
                 </h3>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Every profile and uploaded photograph undergoes safety screening to eliminate dishonest accounts, impersonation, and fraudulent actors.
+                  Profile photos are screened automatically, and you can block and report anyone who behaves badly or impersonates others.
                 </p>
               </div>
 
@@ -275,7 +275,7 @@ export default function HomePage() {
                 </div>
                 <h4 className="text-base font-bold text-slate-900 dark:text-white">Anti-Screenshot Mode</h4>
                 <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Built-in screen recording and capture blockers in the mobile app protect your images and calls from unauthorized storage.
+                  On Android, chat screens block screenshots and screen recording. This cannot stop another device from photographing the screen.
                 </p>
               </div>
 
@@ -295,7 +295,7 @@ export default function HomePage() {
                 </div>
                 <h4 className="text-base font-bold text-slate-900 dark:text-white">Self-Service Account Erasure</h4>
                 <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Permanent data erasure portal compliant with Google Play Store policies and the Digital Personal Data Protection Act.
+                  Account deletion in the app or on this website, with the details of what is deleted and kept in our Privacy Policy.
                 </p>
               </div>
             </div>
@@ -385,7 +385,7 @@ export default function HomePage() {
                   </div>
                   <h4 className="text-base font-bold text-rose-950 dark:text-rose-200">Account Deletion Portal</h4>
                   <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Google Play Store compliant request portal for permanent erasure of your account and data.
+                    Web portal to permanently erase your account and data.
                   </p>
                 </div>
                 <div className="pt-4 flex items-center gap-1.5 text-xs font-bold text-rose-700 dark:text-rose-300">
@@ -498,7 +498,7 @@ export default function HomePage() {
               Real People &bull; Real Connections
             </h2>
             <p className="text-sm sm:text-base text-slate-400 max-w-xl mx-auto">
-              Download Chahat today on Android to connect with verified adult friends across India.
+              Download Chahat today on Android to connect with adult friends across India.
             </p>
             <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
               <a
