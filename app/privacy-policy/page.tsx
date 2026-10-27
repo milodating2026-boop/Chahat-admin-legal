@@ -132,9 +132,9 @@ export default function PrivacyPolicyPage() {
             ['Call records', 'Deleted (this also removes the other person\u2019s history of those calls)'],
             ['Coin balance and ledger', 'Deleted; unspent coins are lost'],
             ['Terms/Privacy acceptance and consent records', 'Deleted with the account'],
-            ['Reports made about or by you', 'Kept; your identity is replaced by a one-way identifier but free-text report notes may remain'],
+            ['Reports made about or by you', 'Kept; your identity is replaced by a pseudonymous identifier (a hash of your account ID, which is not anonymous because it can be recomputed by anyone who already knows that ID) and free-text report notes may remain'],
             ['Payment records for subscriptions (order id, token hash, amount, dates)', 'Kept, detached from your account'],
-            ['Anonymised record that a deletion happened', 'Kept'],
+            ['Pseudonymised record that a deletion happened', 'Kept'],
           ]}
         />
         <p>
