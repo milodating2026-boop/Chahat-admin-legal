@@ -9,7 +9,7 @@ import { PageBanner } from '@/components/layout/PageBanner';
 import { supabase } from '@/services/supabase';
 import { SUPPORT_EMAIL } from '@/lib/contact';
 import {
-  friendlyOAuthReturnError, friendlyRequestError, successMessage,
+  friendlySendCodeError, friendlyOAuthReturnError, friendlyRequestError, successMessage,
   type RequestResult,
 } from '@/lib/accountErrors';
 
@@ -24,6 +24,7 @@ export default function DeleteAccountPage() {
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<RequestResult>(null);
   const submitting = React.useRef(false);
+  const [linkSentTo, setLinkSentTo] = useState('');
 
   // Resume when a session already exists (returning from Google, or a page refresh), and surface OAuth errors.
   React.useEffect(() => {
@@ -51,6 +52,20 @@ export default function DeleteAccountPage() {
     window.location.assign(data.url);
     // If the browser is still on this page after 10 seconds, the redirect did not happen: stop the spinner and say so.
     setTimeout(() => { setBusy(false); setErr('Google did not respond. Please try again, or use a different browser.'); }, 10000);
+  };
+  // Backup sign-in: a one-time link by e-mail. Never creates accounts; the reply is identical whether or not the e-mail has one.
+  const sendLink = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (busy) return;
+    setErr(''); setBusy(true);
+    const { error } = await supabase!.auth.signInWithOtp({
+      email: email.trim(),
+      options: { shouldCreateUser: false, emailRedirectTo: `${window.location.origin}/delete-account` },
+    });
+    setBusy(false);
+    const noAccount = error && /signups? not allowed|otp_disabled|user not found/i.test(`${(error as any).code ?? ''} ${error.message}`);
+    if (error && !noAccount) { setErr(friendlySendCodeError(error)); return; }
+    setLinkSentTo(email.trim());
   };
   const del = async () => {
     if (submitting.current) return; // blocks double-clicks / duplicate submissions
@@ -90,6 +105,15 @@ export default function DeleteAccountPage() {
           <div className={card}>
             <p className="text-xs">Sign in with the Google account you used for Chahat so we can verify the account is yours.</p>
             <button onClick={google} disabled={busy} className="w-full py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-bold disabled:opacity-60">{busy ? 'Redirecting to Google…' : 'Continue with Google'}</button>
+            <div className="flex items-center gap-3 text-xs text-slate-500"><span className="flex-1 border-t border-slate-200 dark:border-slate-800" />or<span className="flex-1 border-t border-slate-200 dark:border-slate-800" /></div>
+            {linkSentTo ? (
+              <p role="status" className="text-xs">If an account exists for <strong>{linkSentTo}</strong>, we have emailed you a sign-in link. Open it in this browser to continue. <button type="button" onClick={() => setLinkSentTo('')} className="underline">Use a different email</button></p>
+            ) : (
+              <form onSubmit={sendLink} className="space-y-3">
+                <input className={input} type="email" required autoComplete="email" placeholder="Your account email" aria-label="Your account email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <button disabled={busy} className="w-full py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-bold disabled:opacity-60">{busy ? 'Sending…' : 'Email me a sign-in link'}</button>
+              </form>
+            )}
             <p className="text-xs text-slate-500">Can&apos;t sign in? Contact {SUPPORT_EMAIL} and we will help verify ownership. See the <Link href="/privacy-policy" className="underline">Privacy Policy</Link> for what is deleted and what is retained.</p>
           </div>
         )}
