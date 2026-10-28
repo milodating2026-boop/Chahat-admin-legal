@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start -p 3000 -H 0.0.0.0",
     "lint": "tsc --noEmit",
-    "test": "tsx --test tests/adminApi.test.ts tests/deletionErrors.test.ts"
+    "test": "tsx --test tests/adminApi.test.ts tests/deletionErrors.test.ts tests/accountErrors.test.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.118.0",
