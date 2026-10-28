@@ -90,8 +90,9 @@ export default function TermsPage() {
       <Section n={8} title="Paid features">
         <Bullets
           items={[
-            'Subscriptions are sold through Google Play and are governed by Google Play\u2019s billing terms. Prices, plans and what each plan includes are shown in the app before you buy.',
-            'Subscriptions renew according to Google Play until you cancel them in Google Play. Deleting your Chahat account does not cancel a subscription.',
+            'Paid plans are sold through Google Play and are governed by Google Play\u2019s billing terms. Prices, plans and what each plan includes are shown in the app before you buy.',
+            'Paid plans are prepaid for a fixed period (1 week, 1 month or 2 months). They do not renew automatically and you are never charged again unless you buy another plan. Your plan ends on the date shown in the app. Buying the same plan again before it ends adds to it.',
+            'Deleting your Chahat account ends any active plan.',
             'Refunds are handled under Google Play\u2019s refund policies and applicable consumer law. This does not limit any rights you have by law.',
             'If an account is ended for breaking these Terms, unused paid benefits may be forfeited to the extent the law allows.',
           ]}

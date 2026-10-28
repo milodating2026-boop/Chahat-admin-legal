@@ -41,11 +41,12 @@ export default function PrivacyPolicyPage() {
             ['Account', 'Email address and password (handled by Supabase Authentication) or Google sign-in. Your session is kept on your device.', 'Sign-up and login'],
             ['Profile', 'Name, date of birth (used to enforce 18+; only your age is shown to others), gender, who you want to meet, relationship intents, city, bio, work, education, interests, languages, lifestyle and prompt answers.', 'You enter it'],
             ['Photos and voice intro', 'Profile photos and an optional short voice introduction. The app removes embedded location (EXIF/GPS) metadata from photos before upload.', 'You upload it'],
-            ['Verification selfie', 'If you choose to verify, a selfie you take is uploaded and stored privately. It is not shown to other members.', 'Optional'],
+            ['Verification selfie', 'Selfie verification is not currently offered in the app. Any selfie submitted earlier is stored privately, is never shown to other members and is deleted with your account.', 'Not currently offered'],
             ['Location', 'With your permission, your device location is read only while the app is open. Our server rounds it to a grid of roughly 1 km before storing and does not keep the exact point. Other members see only an approximate distance. You can hide your distance or remove the stored location in Settings.', 'Optional, consent recorded'],
             ['Messages', 'Text, replies, reactions, photos and voice messages you send. Photos and voice files are stored in cloud storage; the other person can read what you send.', 'When you chat'],
+            ['Video calls', 'Video calls between matched members are carried live by our calling provider (Agora). Chahat does not record calls, and call audio and video are not stored by us. We keep call records: who called whom, when, call status, how long it lasted and your daily call allowance used.', 'When you call'],
             ['Activity', 'Likes, passes, matches, blocks, reports you make or that are made about you, and daily usage limits.', 'While you use the app'],
-            ['Purchases', 'Subscriptions go through Google Play. We store order id, product, amount, dates, a hash of the purchase token and your plan. We do not receive your card or UPI details.', 'When you buy'],
+            ['Purchases', 'Prepaid plans are bought through Google Play. We store order id, product, amount, dates, a hash of the purchase token and your plan. We do not receive your card or UPI details.', 'When you buy'],
             ['Notifications', 'A device push token and your notification choices (including what may show on the lock screen: nothing, sender name, or a short preview).', 'Optional, consent recorded'],
             ['Consents and acceptances', 'Which versions of the Terms and this policy you accepted and when, and your choices for location and push.', 'Sign-up, prompts'],
           ]}
@@ -56,14 +57,14 @@ export default function PrivacyPolicyPage() {
         </p>
         <p>
           <strong className={strong}>Not collected by the app:</strong> your phone number, contacts, device call log, SMS, precise
-          location history, government ID documents, or an advertising ID. The app does not currently offer voice or video
-          calling, so no call audio or video is collected. The app contains no advertising or third-party
+          location history, government ID documents, or an advertising ID. Video calls are not recorded, and no call audio or
+          video is stored by us. The app contains no advertising or third-party
           analytics/crash-reporting SDKs. (Our hosting and service providers may keep ordinary technical logs, such as IP
           address and timestamps, to run and secure their services.)
         </p>
         <p>
-          <strong className={strong}>Device permissions the app requests:</strong> camera (selfie and photos), photos/media
-          (to pick pictures), microphone (voice messages and your voice intro), location while in use (discovery), Bluetooth connect
+          <strong className={strong}>Device permissions the app requests:</strong> camera (video calls and photos), photos/media
+          (to pick pictures), microphone (video calls, voice messages and your voice intro), location while in use (discovery), Bluetooth connect
           (Bluetooth headset audio), notifications, and vibration. You can refuse or revoke any of them in your device settings;
           the features that need them will then be unavailable, but discovery by city, likes, matches and chat remain.
         </p>
@@ -102,7 +103,8 @@ export default function PrivacyPolicyPage() {
             ['Google Cloud Vision (SafeSearch)', 'Automated screening of profile photos', 'The photo image'],
             ['Google Sign-In', 'Optional login with Google', 'Your Google account identity (email, name)'],
             ['Expo push service and Google Firebase Cloud Messaging', 'Delivering Android push notifications', 'Your push token and the notification text'],
-            ['Google Play (Billing and Developer API)', 'Subscriptions, purchase verification', 'Purchase token, product, order details'],
+            ['Agora', 'Live video calls between matched members (not recorded)', 'Call audio and video in transit, a temporary call channel and token, and when each person joined and left'],
+            ['Google Play (Billing and Developer API)', 'Prepaid plans, purchase verification', 'Purchase token, product, order details'],
           ]}
         />
         <p>
@@ -140,8 +142,8 @@ export default function PrivacyPolicyPage() {
           administrators.
         </p>
         <p>
-          <strong className={strong}>Limits you should know about.</strong> Deleting your account does not cancel a Google Play
-          subscription: cancel it in Google Play. Image links already issued can keep working until they expire (up to one
+          <strong className={strong}>Limits you should know about.</strong> Deleting your account ends any active plan; plans are
+          prepaid and never renew, so there is nothing to cancel in Google Play. Image links already issued can keep working until they expire (up to one
           hour). Messages you deleted for everyone are blanked immediately and their files are queued for removal by a clean-up process.
           Files from chats that ended by unmatching or blocking may not yet be cleaned up automatically. We have not verified
           whether our database host keeps backups that hold deleted data for a limited time; if it does, deleted data can

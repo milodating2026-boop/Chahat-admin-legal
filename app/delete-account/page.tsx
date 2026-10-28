@@ -97,7 +97,7 @@ export default function DeleteAccountPage() {
           <p className="font-bold text-slate-900 dark:text-white">Chahat — Online Friendship App (com.chahat.dating)</p>
           <p><strong>Deleted:</strong> profile, photos and verification selfies, voice intro, matches, likes and blocks, messages and chat media (also removed for the other person), location data, push tokens and settings, consent and acceptance records, and your sign-in account.</p>
           <p><strong>Kept:</strong> reports made about or by you (identity replaced by a pseudonymous identifier, a hash of your account ID that is not anonymous; free-text notes may remain), payment records for subscriptions (detached from your account) and a pseudonymised record that a deletion occurred. We have not yet set fixed retention periods for these; see the <Link href="/privacy-policy" className="underline">Privacy Policy</Link>.</p>
-          <p>Deleting your account does not cancel a Google Play subscription. Cached image links can work for up to one hour. We have not verified whether our database host keeps backups containing deleted data for a limited period.</p>
+          <p>Deleting your account ends any active plan; plans are prepaid and never renew, so there is nothing to cancel in Google Play. Cached image links can work for up to one hour. We have not verified whether our database host keeps backups containing deleted data for a limited period.</p>
         </div>
         {!supabase && <div role="alert" className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs">Online deletion is not configured on this deployment. Email {SUPPORT_EMAIL} from the address on your account.</div>}
 
@@ -124,7 +124,7 @@ export default function DeleteAccountPage() {
             <ul className="list-disc pl-5 text-xs space-y-1">
               <li>Your profile, photos, selfies, matches, chats and chat media (also removed for the other person), location and sign-in account are deleted.</li>
               <li>Reports about or by you, payment records and a pseudonymised deletion record are kept in reduced form; see the Privacy Policy.</li>
-              <li>Cancel any Google Play subscription separately in Google Play.</li>
+              <li>Any active plan ends. Plans are prepaid and never renew, so you will not be charged again.</li>
             </ul>
             <p className="text-xs">Signed in as <strong>{email}</strong>. Type <strong>DELETE</strong> to confirm your request.</p>
             <input className={input} value={typed} onChange={(e) => setTyped(e.target.value)} aria-label="Type DELETE to confirm" autoComplete="off" />
@@ -140,7 +140,7 @@ export default function DeleteAccountPage() {
           <div className={card} role="status">
             <div className="flex items-center gap-2 text-emerald-700 font-bold"><CheckCircle2 className="w-5 h-5" /> {successMessage(result).title}</div>
             <p className="text-xs">{successMessage(result).body}</p>
-            <p className="text-xs">If you had a Google Play subscription, cancel it in Google Play so you are not billed again.</p>
+            <p className="text-xs">Paid plans are prepaid and never renew, so you will not be charged again.</p>
           </div>
         )}
         {err && phase === 'signin' && <p role="alert" className="text-xs text-rose-700">{err}</p>}

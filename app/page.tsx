@@ -29,7 +29,7 @@ export default function HomePage() {
   const faqs = [
     {
       q: 'What is Chahat — Online Friendship App?',
-      a: 'Chahat is a social app designed to help adults (18+) across India connect through conversation. Members can discover people, match, chat, and send voice messages.'
+      a: 'Chahat is a social app designed to help adults (18+) across India connect through conversation. Members can discover people, match, chat, send voice messages and make video calls.'
     },
     {
       q: 'Who can use Chahat? Is there an age requirement?',
@@ -41,7 +41,7 @@ export default function HomePage() {
     },
     {
       q: 'Can I make voice or video calls on Chahat?',
-      a: 'No. Calling is not currently available in the app. You can chat and send voice messages with members you have matched with.'
+      a: 'Yes, video calls with members you have matched with. Free members get 30 seconds of video calling a day; Premium, Plus and VIP members get 5 minutes a day. Time resets at midnight (India time). Calls are not recorded.'
     },
     {
       q: 'How do I submit an account or data deletion request?',
@@ -445,7 +445,7 @@ export default function HomePage() {
                 Frequently Asked Questions
               </h2>
               <p className="text-base text-slate-600 dark:text-slate-400">
-                Clear answers regarding accounts, verification, and safety on Chahat.
+                Clear answers regarding accounts, calls, and safety on Chahat.
               </p>
             </div>
 
