@@ -22,8 +22,8 @@ export function friendlyVerifyError(e: AuthErr): string {
 
 /** Google redirect returned with an error in the URL. */
 export function friendlyOAuthReturnError(raw: string | null | undefined): string {
-  if (/access_denied/i.test(raw ?? '')) return 'Google sign-in was cancelled. You can try again, or use an email code instead.';
-  return 'Google sign-in could not be completed. Please use an email code instead.';
+  if (/access_denied/i.test(raw ?? '')) return 'Google sign-in was cancelled. You can try again.';
+  return 'Google sign-in could not be completed. Please try again, or contact support if it keeps happening.';
 }
 
 /** Submitting the deletion request. `error` comes from supabase.functions.invoke. */

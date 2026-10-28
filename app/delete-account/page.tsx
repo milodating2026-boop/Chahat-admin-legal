@@ -43,8 +43,14 @@ export default function DeleteAccountPage() {
   const google = async () => {
     if (busy) return;
     setErr(''); setBusy(true);
-    const { error } = await supabase!.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${window.location.origin}/delete-account` } });
-    if (error) { setBusy(false); setErr(friendlyOAuthReturnError(null)); }
+    const { data, error } = await supabase!.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}/delete-account`, skipBrowserRedirect: true, queryParams: { prompt: 'select_account' } },
+    });
+    if (error || !data?.url) { setBusy(false); setErr(friendlyOAuthReturnError(null)); return; }
+    window.location.assign(data.url);
+    // If the browser is still on this page after 10 seconds, the redirect did not happen: stop the spinner and say so.
+    setTimeout(() => { setBusy(false); setErr('Google did not respond. Please try again, or use a different browser.'); }, 10000);
   };
   const del = async () => {
     if (submitting.current) return; // blocks double-clicks / duplicate submissions
