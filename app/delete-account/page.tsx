@@ -8,7 +8,10 @@ import { PublicFooter } from '@/components/layout/PublicFooter';
 import { PageBanner } from '@/components/layout/PageBanner';
 import { supabase } from '@/services/supabase';
 import { SUPPORT_EMAIL } from '@/lib/contact';
-import { deletionFailureMessage } from '@/lib/deletionErrors';
+import { deletionFailureMessage, deletionErrorDetail } from '@/lib/deletionErrors';
+
+// Google sign-in is hidden unless explicitly enabled (needs Google provider + redirect URL set in Supabase).
+const GOOGLE_ENABLED = process.env.NEXT_PUBLIC_ENABLE_GOOGLE_SIGNIN === 'true';
 
 type Phase = 'signin' | 'confirm' | 'working' | 'done';
 
@@ -39,10 +42,25 @@ export default function DeleteAccountPage() {
   };
   const del = async () => {
     setErr(''); setPhase('working');
-    const { data, error } = await supabase!.functions.invoke('delete-account', { body: { confirm: true } });
+    // Make sure we send a fresh, valid access token explicitly.
+    let token: string | undefined;
+    try {
+      const { data: refreshed } = await supabase!.auth.refreshSession();
+      token = refreshed.session?.access_token;
+      if (!token) token = (await supabase!.auth.getSession()).data.session?.access_token;
+    } catch { /* fall through; invoke will report */ }
+    if (!token) {
+      setPhase('signin'); setErr('Your session expired. Please sign in again.');
+      return;
+    }
+    const { data, error } = await supabase!.functions.invoke('delete-account', {
+      body: { confirm: true },
+      headers: { Authorization: `Bearer ${token}` },
+    });
     if (error || !data?.success) {
       setPhase('confirm');
-      setErr(deletionFailureMessage(error));
+      const detail = error ? await deletionErrorDetail(error) : (data?.error ? String(data.error) : 'Function returned success=false');
+      setErr(deletionFailureMessage(error) + (detail ? ` [${detail}]` : ''));
       return;
     }
     await supabase!.auth.signOut();
@@ -73,7 +91,7 @@ export default function DeleteAccountPage() {
               <label className="block space-y-1"><span className="text-xs font-bold uppercase">Password</span><input className={input} type="password" required autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} /></label>
               <button disabled={busy} className="w-full py-3 rounded-xl bg-slate-900 text-white font-bold disabled:opacity-60">{busy ? 'Signing in…' : 'Sign in to continue'}</button>
             </form>
-            <button onClick={google} className="w-full py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-bold">Continue with Google</button>
+            {GOOGLE_ENABLED && <button onClick={google} className="w-full py-3 rounded-xl border border-slate-300 dark:border-slate-700 font-bold">Continue with Google</button>}
             <p className="text-xs text-slate-500">Can&apos;t sign in? Email {SUPPORT_EMAIL} and we will help verify ownership. See the <Link href="/privacy-policy" className="underline">Privacy Policy</Link> for what is deleted and what is retained.</p>
           </div>
         )}

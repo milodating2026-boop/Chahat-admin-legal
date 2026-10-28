@@ -12,3 +12,24 @@ export function deletionFailureMessage(error: unknown): string {
   const status = (error as { context?: { status?: unknown } } | null | undefined)?.context?.status;
   return status === 401 ? SESSION_GONE_MESSAGE : DELETION_INCOMPLETE_MESSAGE;
 }
+
+// Reads the real reason out of a supabase-js FunctionsHttpError / FunctionsFetchError so the page can show it.
+// Never throws. Returns e.g. "HTTP 404: Function not found" or "Network/CORS error: Failed to send a request...".
+export async function deletionErrorDetail(error: unknown): Promise<string> {
+  try {
+    const e = error as { name?: string; message?: string; context?: unknown } | null | undefined;
+    if (!e) return '';
+    const ctx = e.context as { status?: number; clone?: () => { text: () => Promise<string> }; text?: () => Promise<string> } | undefined;
+    if (ctx && typeof ctx.status === 'number') {
+      let body = '';
+      try { body = await (ctx.clone ? ctx.clone().text() : ctx.text!()); } catch { /* ignore */ }
+      let msg = body;
+      try { const j = JSON.parse(body); msg = j.error || j.message || j.msg || body; } catch { /* plain text */ }
+      return `HTTP ${ctx.status}${msg ? `: ${String(msg).slice(0, 200)}` : ''}`;
+    }
+    if (e.name === 'FunctionsFetchError') return `Network/CORS error: ${e.message ?? 'request could not be sent'}`;
+    return e.message ? String(e.message).slice(0, 200) : '';
+  } catch {
+    return '';
+  }
+}
