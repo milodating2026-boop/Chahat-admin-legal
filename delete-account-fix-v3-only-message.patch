@@ -1,0 +1,25 @@
+From 9e6f04a98712414ca01167308b5577c6a13e95db Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Wed, 28 Oct 2026 00:06:31 +0000
+Subject: [PATCH] Delete account: suggest in-app deletion as fallback
+
+---
+ lib/deletionErrors.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/deletionErrors.ts b/lib/deletionErrors.ts
+index 0058c88..4d4bf88 100644
+--- a/lib/deletionErrors.ts
++++ b/lib/deletionErrors.ts
+@@ -6,7 +6,7 @@ export const SESSION_GONE_MESSAGE =
+   'Your session is no longer valid. If a previous attempt already finished, your account is gone: try signing in again, and if sign-in fails the deletion is complete. Otherwise sign out, sign in and retry.';
+ 
+ export const DELETION_INCOMPLETE_MESSAGE =
+-  'Deletion did not finish. Your account is still signed in and may be suspended; press the button again to retry, or contact support.';
++  'Deletion did not finish. Your account is still signed in and may be suspended; press the button again to retry. If it still fails here, you can delete your account directly from the Chahat app (Settings / Account), or contact support.';
+ 
+ export function deletionFailureMessage(error: unknown): string {
+   const status = (error as { context?: { status?: unknown } } | null | undefined)?.context?.status;
+-- 
+2.43.0
+

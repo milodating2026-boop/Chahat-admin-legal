@@ -6,7 +6,7 @@ export const SESSION_GONE_MESSAGE =
   'Your session is no longer valid. If a previous attempt already finished, your account is gone: try signing in again, and if sign-in fails the deletion is complete. Otherwise sign out, sign in and retry.';
 
 export const DELETION_INCOMPLETE_MESSAGE =
-  'Deletion did not finish. Your account is still signed in and may be suspended; press the button again to retry, or contact support.';
+  'Deletion did not finish. Your account is still signed in and may be suspended; press the button again to retry. If it still fails here, you can delete your account directly from the Chahat app (Settings / Account), or contact support.';
 
 export function deletionFailureMessage(error: unknown): string {
   const status = (error as { context?: { status?: unknown } } | null | undefined)?.context?.status;
