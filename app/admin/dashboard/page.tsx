@@ -5,7 +5,8 @@ import { useAdminData } from '@/services/useAdminData';
 export default function Dashboard() {
   const { data, error, loading } = useAdminData<any>('stats');
   const tiles = data ? [
-    ['Registered profiles', data.profiles], ['Suspended', data.suspended], ['Open reports', data.openReports], ['Matches', data.matches],
+    ['Registered profiles', data.profiles], ['New in last 24 h', data.newLast24h ?? 0], ['Active in last 24 h', data.activeLast24h ?? 0], ['Matches', data.matches],
+    ['Open reports', data.openReports], ['Suspended', data.suspended],
   ] : [];
   return (
     <div className="space-y-6">

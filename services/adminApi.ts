@@ -44,6 +44,8 @@ export const friendlyError = (e: unknown) => {
     image_too_large: 'The image must be 1 MB or smaller.',
     announcement_text_invalid: 'Title (up to 60 characters) and message (up to 200) are required.',
     invalid_dates: 'Choose a valid date range.',
+    invalid_email: 'Enter a valid email address.',
+    no_account_for_email: 'No Chahat account uses that email. The person must sign up (or sign in once) first.',
   };
   return map[c] ?? 'Request failed. Check that the admin-api function is deployed.';
 };

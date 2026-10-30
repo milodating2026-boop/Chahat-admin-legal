@@ -215,23 +215,34 @@ export async function handleAdminApi(req: Request, deps: Deps): Promise<Response
 
       case "stats": {
         const c = (t: string, f?: (q: any) => any) => { let q = sb.from(t).select("*", { count: "exact", head: true }); if (f) q = f(q); return q; };
-        const [all, susp, open, matches, subs] = await Promise.all([
+        const dayAgo = new Date(Date.now() - 86400_000).toISOString();
+        // Counted in the database (head/count or aggregate RPC): never limited by the 1,000-row page size.
+        const [all, susp, open, matches, tiers, newToday, activeToday] = await Promise.all([
           c("profiles", (q) => q.eq("is_demo", false)),
           c("profiles", (q) => q.eq("is_demo", false).eq("status", "suspended")),
           c("reports", (q) => q.eq("status", "open")),
           c("matches"),
-          sb.from("user_subscriptions").select("tier").eq("status", "active"),
+          sb.rpc("admin_tier_counts"),
+          c("profiles", (q) => q.eq("is_demo", false).gte("created_at", dayAgo)),
+          c("profiles", (q) => q.eq("is_demo", false).gte("last_active", dayAgo)),
         ]);
-        const tiers: Record<string, number> = {};
-        (subs.data ?? []).forEach((s: any) => { tiers[s.tier] = (tiers[s.tier] ?? 0) + 1; });
-        return json({ profiles: all.count ?? 0, suspended: susp.count ?? 0, openReports: open.count ?? 0, matches: matches.count ?? 0, activeSubscriptionsByTier: tiers }, 200, h);
+        return json({ profiles: all.count ?? 0, suspended: susp.count ?? 0, openReports: open.count ?? 0, matches: matches.count ?? 0,
+          newLast24h: newToday.count ?? 0, activeLast24h: activeToday.count ?? 0,
+          activeSubscriptionsByTier: (tiers.data && typeof tiers.data === "object") ? tiers.data : {} }, 200, h);
       }
 
       case "list_audit": {
         if (needAdmin()) return json({ error: "forbidden" }, 403, h);
         const { data, error } = await sb.from("admin_audit").select("id,admin_id,action,target,note,created_at").order("created_at", { ascending: false }).limit(clampInt(body.limit, 100, 1, 200));
         if (error) throw error;
-        return json({ entries: data ?? [] }, 200, h);
+        // Show who did it by email (staff only, a handful of lookups).
+        const actors = [...new Set((data ?? []).map((e: any) => e.admin_id).filter((x: any) => typeof x === "string" && UUID.test(x)))].slice(0, 50);
+        const emails = new Map<string, string | null>();
+        await Promise.all(actors.map(async (id: any) => {
+          const { data: au } = await sb.auth.admin.getUserById(id);
+          emails.set(id, au?.user?.email ?? null);
+        }));
+        return json({ entries: (data ?? []).map((e: any) => ({ ...e, actorEmail: emails.get(e.admin_id) ?? null })) }, 200, h);
       }
 
       case "list_staff": {
@@ -243,6 +254,37 @@ export async function handleAdminApi(req: Request, deps: Deps): Promise<Response
           return { userId: r.user_id, role: r.role, email: au?.user?.email ?? null };
         }));
         return json({ staff }, 200, h);
+      }
+
+      // Admins can add or remove MODERATORS by email. Granting or removing the admin role is still only possible in
+      // the database, so a stolen admin session can never create more admins or lock the owner out.
+      case "set_moderator": {
+        if (needAdmin()) return json({ error: "forbidden" }, 403, h);
+        const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
+        const grant = body.grant === true;
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200) return json({ error: "invalid_email" }, 400, h);
+        let target: any = null;
+        for (let page = 1; page <= 20 && !target; page++) {
+          const { data: lst, error } = await sb.auth.admin.listUsers({ page, perPage: 1000 });
+          if (error) throw error;
+          target = (lst?.users ?? []).find((x: any) => (x.email ?? "").toLowerCase() === email) ?? null;
+          if ((lst?.users ?? []).length < 1000) break;
+        }
+        if (!target) return json({ error: "no_account_for_email" }, 404, h);
+        if (target.id === uid) return json({ error: "cannot_target_self" }, 400, h);
+        const { data: tr } = await sb.from("user_roles").select("role").eq("user_id", target.id);
+        if ((tr ?? []).some((r: any) => r.role === "admin")) return json({ error: "cannot_target_staff" }, 403, h);
+        if (grant) {
+          if (!(tr ?? []).some((r: any) => r.role === "moderator")) {
+            const { error } = await sb.from("user_roles").insert({ user_id: target.id, role: "moderator" });
+            if (error) throw error;
+          }
+        } else {
+          const { error } = await sb.from("user_roles").delete().eq("user_id", target.id).eq("role", "moderator");
+          if (error) throw error;
+        }
+        await audit(grant ? "moderator_added" : "moderator_removed", target.id, email);
+        return json({ ok: true }, 200, h);
       }
 
       case "list_subscriptions": {
@@ -298,9 +340,15 @@ export async function handleAdminApi(req: Request, deps: Deps): Promise<Response
 
       case "export_users": {
         if (needAdmin()) return json({ error: "forbidden" }, 403, h);
-        const { data, error } = await sb.from("profiles").select("id,name,city,gender,dob,status,onboarded,is_demo,last_active,created_at")
-          .eq("is_demo", false).order("created_at", { ascending: false }).limit(10000);
-        if (error) throw error;
+        // Paged: Supabase returns at most 1,000 rows per request.
+        const data: any[] = [];
+        for (let from = 0; from < 50000; from += 1000) {
+          const { data: page, error } = await sb.from("profiles").select("id,name,city,gender,dob,status,onboarded,is_demo,last_active,created_at")
+            .eq("is_demo", false).order("created_at", { ascending: false }).range(from, from + 999);
+          if (error) throw error;
+          data.push(...(page ?? []));
+          if ((page ?? []).length < 1000) break;
+        }
         await audit("users_exported", "profiles", `${(data ?? []).length} rows`);
         return json({ csv: toCsv((data ?? []).map((p: any) => ({ id: p.id, name: p.name, city: p.city, gender: p.gender, age: ageOf(p.dob), status: p.status, onboarded: p.onboarded, last_active: p.last_active, joined: p.created_at }))) }, 200, h);
       }
@@ -310,14 +358,11 @@ export async function handleAdminApi(req: Request, deps: Deps): Promise<Response
         if (needAdmin()) return json({ error: "forbidden" }, 403, h);
         const { data, error } = await sb.from("ads").select("*").order("created_at", { ascending: false }).limit(200);
         if (error) throw error;
-        const ids = (data ?? []).map((a: any) => a.id);
-        const { data: ev } = ids.length ? await sb.from("ad_events").select("ad_id,kind").in("ad_id", ids) : { data: [] };
-        const stats = new Map<string, { impressions: number; clicks: number }>();
-        (ev ?? []).forEach((e: any) => {
-          const s0 = stats.get(e.ad_id) ?? { impressions: 0, clicks: 0 };
-          if (e.kind === "impression") s0.impressions++; else s0.clicks++;
-          stats.set(e.ad_id, s0);
-        });
+        const { data: agg, error: sErr } = await sb.rpc("admin_ad_stats");
+        if (sErr) throw sErr;
+        const stats = new Map<string, { impressions: number; clicks: number }>(
+          (agg ?? []).map((r: any) => [r.ad_id, { impressions: Number(r.impressions ?? 0), clicks: Number(r.clicks ?? 0) }]),
+        );
         const pub = (path: string | null) => (path ? sb.storage.from("ads").getPublicUrl(path).data?.publicUrl ?? null : null);
         return json({ ads: (data ?? []).map((a: any) => ({ ...a, imageUrl: pub(a.image_path), ...(stats.get(a.id) ?? { impressions: 0, clicks: 0 }) })) }, 200, h);
       }
@@ -440,14 +485,10 @@ export async function handleAdminApi(req: Request, deps: Deps): Promise<Response
 
       case "payments_summary": {
         if (needAdmin()) return json({ error: "forbidden" }, 403, h);
-        const since = new Date(Date.now() - 30 * 86400_000).toISOString();
-        const [orders, failedN, refunds] = await Promise.all([
-          sb.from("subscription_orders").select("amount_inr,tier,store").gte("created_at", since).neq("store", "manual_grant"),
-          sb.from("purchase_attempts").select("id", { count: "exact", head: true }).eq("outcome", "failed").gte("created_at", since),
-          sb.from("subscription_orders").select("id", { count: "exact", head: true }).in("provider_state", ["REVOKED", "REFUNDED"]).gte("created_at", since),
-        ]);
-        const revenue = (orders.data ?? []).reduce((a: number, o: any) => a + Number(o.amount_inr ?? 0), 0);
-        return json({ last30Days: { orders: (orders.data ?? []).length, revenueInr: revenue, failedAttempts: failedN.count ?? 0, refundsOrRevocations: refunds.count ?? 0 } }, 200, h);
+        const { data, error } = await sb.rpc("admin_payments_summary", { _days: 30 });
+        if (error) throw error;
+        const d = (data ?? {}) as any;
+        return json({ last30Days: { orders: Number(d.orders ?? 0), revenueInr: Number(d.revenueInr ?? 0), failedAttempts: Number(d.failedAttempts ?? 0), refundsOrRevocations: Number(d.refundsOrRevocations ?? 0) } }, 200, h);
       }
 
       // ---------------- Business reports ----------------

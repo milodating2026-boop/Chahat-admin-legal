@@ -160,3 +160,21 @@ test("broadcast: bad text is refused; a dry run counts phones and sends nothing"
   assert.equal((await r.json()).recipients, 2);
   assert.equal(pushed, 0);
 });
+
+test("staff: only admins manage moderators; admin role can never be granted from the panel", async () => {
+  _resetRateLimit();
+  const mod = mk({ roles: { [U]: ["moderator"] } });
+  assert.equal((await call(mod.deps, { action: "set_moderator", email: "x@y.in", grant: true })).status, 403);
+  _resetRateLimit();
+  const adm = mk({ roles: { [U]: ["admin"] } });
+  assert.equal((await call(adm.deps, { action: "set_moderator", email: "not-an-email", grant: true })).status, 400);
+  const src = (await import("node:fs")).readFileSync(new URL("../supabase/functions/admin-api/handler.ts", import.meta.url), "utf8");
+  assert.ok(!/insert\(\{\s*user_id:[^}]*role:\s*"admin"/.test(src), "no code path inserts an admin role");
+});
+
+test("counts are aggregated in the database (never capped by the 1,000-row page size)", async () => {
+  const src = (await import("node:fs")).readFileSync(new URL("../supabase/functions/admin-api/handler.ts", import.meta.url), "utf8");
+  for (const rpc of ["admin_tier_counts", "admin_ad_stats", "admin_payments_summary"]) assert.ok(src.includes(`sb.rpc("${rpc}"`), rpc);
+  assert.ok(!src.includes('from("ad_events").select'), "ad stats are not downloaded row by row");
+  assert.ok(src.includes(".range(from, from + 999)"), "users export is paged");
+});
