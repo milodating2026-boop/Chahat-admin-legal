@@ -3,7 +3,7 @@
 // or is a deliberate "not yet decided" statement. Change a value here and every legal page follows.
 import { SUPPORT_EMAIL } from './contact';
 
-export const LEGAL_LAST_UPDATED = '29 October 2026';
+export const LEGAL_LAST_UPDATED = '30 October 2026';
 
 // Shown as a badge on the legal pages. Set to '' once a qualified lawyer has reviewed the documents.
 export const LEGAL_REVIEW_STATUS = 'Draft for legal review';

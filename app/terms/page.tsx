@@ -104,6 +104,11 @@ export default function TermsPage() {
           The Service relies on third parties such as Supabase, Google (Play, Sign-In, Cloud Vision) and Expo. We are not
           responsible for third-party services outside our control, but we will act on problems we are told about.
         </p>
+        <p>
+          Discover may show sponsored cards from other businesses, always marked “Sponsored”. They are not member profiles,
+          swiping them does nothing, and any offer is between you and the advertiser. Report a misleading ad to us and we will
+          review it.
+        </p>
       </Section>
 
       <Section n={10} title="Our role as an intermediary and takedown">

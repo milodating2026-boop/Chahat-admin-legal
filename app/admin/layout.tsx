@@ -3,17 +3,20 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Users, ShieldAlert, CreditCard, History, UserPlus, Activity, LogOut, ArrowLeft, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Users, ShieldAlert, CreditCard, History, UserPlus, Activity, LogOut, ArrowLeft, Menu, X, Megaphone, Bell, BarChart3 } from 'lucide-react';
 import { AdminSessionProvider, useAdminSession } from '@/services/session';
 
 const NAV = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard, adminOnly: false },
   { href: '/admin/users', label: 'Users', icon: Users, adminOnly: false },
   { href: '/admin/reports', label: 'Reports & Moderation', icon: ShieldAlert, adminOnly: false },
-  { href: '/admin/subscriptions', label: 'Subscriptions', icon: CreditCard, adminOnly: true },
+  { href: '/admin/subscriptions', label: 'Payments & Transactions', icon: CreditCard, adminOnly: true },
+  { href: '/admin/ads', label: 'Ads', icon: Megaphone, adminOnly: true },
+  { href: '/admin/notifications', label: 'Notifications', icon: Bell, adminOnly: true },
+  { href: '/admin/business', label: 'Business reports', icon: BarChart3, adminOnly: true },
   { href: '/admin/staff', label: 'Staff & Roles', icon: UserPlus, adminOnly: true },
   { href: '/admin/audit-logs', label: 'Audit Log', icon: History, adminOnly: true },
-  { href: '/admin/operations', label: 'Notifications, Analytics & Monitoring', icon: Activity, adminOnly: false },
+  { href: '/admin/operations', label: 'Monitoring', icon: Activity, adminOnly: false },
 ];
 
 function Shell({ children }: { children: React.ReactNode }) {

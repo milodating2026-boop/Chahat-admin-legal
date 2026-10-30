@@ -93,3 +93,70 @@ test("CORS only echoes allowlisted origin", async () => {
   const r = await handleAdminApi(new Request("http://x", { method: "OPTIONS", headers: { origin: "https://evil.example" } }), deps);
   assert.equal(r.headers.get("access-control-allow-origin"), null);
 });
+
+// ---------------- 2026-10-30: ads, broadcasts, payments, reports, user detail ----------------
+import { validateAd, toCsv, detectImageType, cleanSegment } from "../supabase/functions/admin-api/handler.ts";
+
+test("ads: validation requires https links, valid dates and the required fields", () => {
+  assert.equal(validateAd({ advertiser: "", title: "x" }).ok, false);
+  const bad = validateAd({ advertiser: "A", title: "T", ctaUrl: "http://x.com" });
+  assert.equal(bad.ok, false);
+  assert.equal((bad as any).error, "ad_url_must_be_https");
+  assert.equal((validateAd({ advertiser: "A", title: "T", startsAt: "2026-11-02", endsAt: "2026-11-01" }) as any).error, "ad_dates_invalid");
+  const good = validateAd({ advertiser: "Acme", title: "Hello", ctaUrl: "https://acme.in", targetGender: "woman", targetCities: ["Pune", ""], weight: 500, imagePath: "../evil" });
+  assert.equal(good.ok, true);
+  const row = (good as any).row;
+  assert.equal(row.weight, 100);
+  assert.deepEqual(row.target_cities, ["Pune"]);
+  assert.equal(row.image_path, undefined, "path traversal is never stored");
+});
+
+test("ad images: only real JPEG/PNG/WEBP by magic bytes", () => {
+  assert.equal(detectImageType(new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 0])), "image/jpeg");
+  assert.equal(detectImageType(new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0])), "image/png");
+  assert.equal(detectImageType(new TextEncoder().encode("<svg onload=alert(1)>")), null);
+});
+
+test("CSV export quotes cells and neutralises spreadsheet formulas", () => {
+  const csv = toCsv([{ name: '=HYPERLINK("x")', city: 'Pune, "MH"' }]);
+  assert.equal(csv.split("\n")[1], `"'=HYPERLINK(""x"")","Pune, ""MH"""`);
+});
+
+test("broadcast segment keeps only known filters", () => {
+  assert.deepEqual(cleanSegment({ gender: "man", plan: "vip", city: " Pune ", sql: "drop" }), { gender: "man", city: "Pune" });
+});
+
+test("moderators cannot manage ads, broadcasts, payments or exports", async () => {
+  for (const action of ["list_ads", "save_ad", "upload_ad_image", "send_announcement", "list_purchase_attempts", "business_report", "export_users"]) {
+    _resetRateLimit();
+    const { deps } = mk({ roles: { [U]: ["moderator"] } });
+    const r = await call(deps, { action });
+    assert.equal(r.status, 403, action);
+  }
+});
+
+test("non-staff are refused before any new action runs", async () => {
+  _resetRateLimit();
+  const { deps } = mk({ roles: {} });
+  assert.equal((await call(deps, { action: "send_announcement", title: "t", body: "b" })).status, 403);
+});
+
+test("broadcast: bad text is refused; a dry run counts phones and sends nothing", async () => {
+  _resetRateLimit();
+  const { deps } = mk({ roles: { [U]: ["admin"] } });
+  assert.equal((await call(deps, { action: "send_announcement", title: "", body: "x" })).status, 400);
+  let pushed = 0;
+  (deps as any).fetchImpl = async () => { pushed++; return new Response("{}"); };
+  (deps as any).makeAdminClient = () => ({
+    from: () => ({ insert: () => ({ select: () => ({ maybeSingle: async () => ({ data: { id: "a" }, error: null }) }) }) }),
+    rpc: async () => ({ data: [{ device_id: "d1", push_token: "ExponentPushToken[x]" }, { device_id: "d2", push_token: "ExponentPushToken[y]" }], error: null }),
+  });
+  // role lookup uses from("user_roles"); keep the original client for that call
+  const base = mk({ roles: { [U]: ["admin"] } }).deps.makeAdminClient();
+  const fake = (deps as any).makeAdminClient();
+  (deps as any).makeAdminClient = () => ({ ...fake, from: (t: string) => (t === "user_roles" ? base.from(t) : fake.from(t)) });
+  const r = await call(deps, { action: "send_announcement", title: "Hi", body: "News", dryRun: true });
+  assert.equal(r.status, 200);
+  assert.equal((await r.json()).recipients, 2);
+  assert.equal(pushed, 0);
+});

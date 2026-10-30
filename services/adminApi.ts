@@ -35,6 +35,15 @@ export const friendlyError = (e: unknown) => {
     not_found_or_already_resolved: 'This report was already resolved.',
     not_configured: 'Supabase is not configured for this deployment.',
     server_not_configured: 'The admin-api function is missing its server configuration.',
+    invalid_user: 'That member could not be found.',
+    verification_not_pending: 'Only a pending verification can be approved.',
+    ad_fields_required: 'Advertiser and headline are required.',
+    ad_url_must_be_https: 'The ad link must start with https://',
+    ad_dates_invalid: 'The end date must be after the start date.',
+    invalid_image: 'Use a JPEG, PNG or WEBP image.',
+    image_too_large: 'The image must be 1 MB or smaller.',
+    announcement_text_invalid: 'Title (up to 60 characters) and message (up to 200) are required.',
+    invalid_dates: 'Choose a valid date range.',
   };
   return map[c] ?? 'Request failed. Check that the admin-api function is deployed.';
 };

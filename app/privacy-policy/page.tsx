@@ -75,7 +75,9 @@ export default function PrivacyPolicyPage() {
           items={[
             'To run the service: create your account, show your profile to eligible members, find matches, deliver messages and send notifications.',
             'To keep members safe: enforce the 18+ rule, screen photos, handle reports and blocks, and suspend accounts that break the Community Guidelines. Staff access is limited to authorised moderators and administrators, and their actions are logged.',
-            'To process purchases, verify them with Google Play and apply your entitlements.',
+            'To process purchases, verify them with Google Play and apply your entitlements. Every purchase attempt (including failed ones) is logged without the purchase token, so we can help when a payment goes wrong.',
+            'To show sponsored cards in Discover. They are always labelled “Sponsored” and chosen only by your gender and city; we count whether you saw or tapped one (once per day). Advertisers never receive your personal data, and nothing about you is sent to them when you tap the link.',
+            'To send occasional updates and offers as notifications if you allow “Offers & announcements” (Settings → Notifications). You can turn this off at any time without affecting other notifications.',
             'To meet legal duties and respond to valid legal requests, and to keep proof that you accepted our Terms and this policy.',
           ]}
         />
@@ -154,8 +156,8 @@ export default function PrivacyPolicyPage() {
       <Section n={6} title="Your choices and rights">
         <p>
           You can edit your profile, hide your distance, remove your stored location, turn notifications off, delete messages
-          for yourself or for everyone, block and report members, and delete your account in the app. Under the DPDP Act you
-          may also ask to access, correct or erase your personal data, withdraw consent, and nominate someone to exercise your
+          for yourself or for everyone, block and report members, download a copy of your data (Settings → Download my data),
+          and delete your account in the app. Under the DPDP Act you may also ask to access, correct or erase your personal data, withdraw consent, and nominate someone to exercise your
           rights if you die or become incapable. Write to{' '}
           <a href={`mailto:${OPERATOR.email}`} className={link}>{OPERATOR.email}</a>. We have not yet fixed a response time for
           privacy requests and will state it here once decided. If you are unhappy with our answer, you can use our grievance
