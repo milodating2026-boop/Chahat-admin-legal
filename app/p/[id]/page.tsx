@@ -8,6 +8,7 @@
 import type { Metadata } from 'next';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PublicFooter } from '@/components/layout/PublicFooter';
+import { OpenInApp } from './OpenInApp';
 
 const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.chahat.dating';
 const ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -21,7 +22,10 @@ export const metadata: Metadata = {
 
 export default async function SharedProfilePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const appUrl = ID_PATTERN.test(id) ? `chahat://p/${id.toLowerCase()}` : 'chahat://';
+  const path = ID_PATTERN.test(id) ? `p/${id.toLowerCase()}` : '';
+  // Android "intent:" link: opens the installed app at this profile even when App Links are not verified,
+  // and goes to Google Play when the app is not installed.
+  const appUrl = `intent://${path}#Intent;scheme=chahat;package=com.chahat.dating;S.browser_fallback_url=${encodeURIComponent(PLAY_URL)};end`;
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans">
       <PublicHeader />
@@ -30,6 +34,7 @@ export default async function SharedProfilePage({ params }: { params: Promise<{ 
         <p className="text-sm text-slate-600 dark:text-slate-400">
           Profiles are only visible inside the Chahat app, to signed-in members aged 18 and over.
         </p>
+        <OpenInApp href={appUrl} />
         <a
           href={appUrl}
           className="inline-block px-6 py-3 rounded-full bg-rose-600 text-white font-bold hover:bg-rose-700 transition-colors"
