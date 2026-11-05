@@ -178,3 +178,19 @@ test("counts are aggregated in the database (never capped by the 1,000-row page 
   assert.ok(!src.includes('from("ad_events").select'), "ad stats are not downloaded row by row");
   assert.ok(src.includes(".range(from, from + 999)"), "users export is paged");
 });
+
+test("grant_subscription: admin only, validates tier, days, email and reason", async () => {
+  const mod = mk({ roles: { [U]: ["moderator"] } });
+  assert.equal((await call(mod.deps, { action: "grant_subscription", email: "x@y.in", tier: "vip", days: 30, reason: "gift" })).status, 403);
+  assert.equal((await call(mod.deps, { action: "lookup_subscription", email: "x@y.in" })).status, 403);
+  const adm = mk({ roles: { [U]: ["admin"] } });
+  const bad = async (b: any, code: string) => {
+    const r = await call(adm.deps, { action: "grant_subscription", ...b });
+    assert.equal(r.status, 400); assert.equal((await r.json()).error, code);
+  };
+  await bad({ email: "nope", tier: "vip", days: 30, reason: "gift" }, "invalid_email");
+  await bad({ email: "x@y.in", tier: "gold", days: 30, reason: "gift" }, "invalid_tier");
+  await bad({ email: "x@y.in", tier: "plus", days: 0, reason: "gift" }, "invalid_days");
+  await bad({ email: "x@y.in", tier: "plus", days: 400, reason: "gift" }, "invalid_days");
+  await bad({ email: "x@y.in", tier: "premium", days: 30, reason: "" }, "reason_required");
+});

@@ -45,6 +45,10 @@ export const friendlyError = (e: unknown) => {
     announcement_text_invalid: 'Title (up to 60 characters) and message (up to 200) are required.',
     invalid_dates: 'Choose a valid date range.',
     invalid_email: 'Enter a valid email address.',
+    invalid_tier: 'Choose Premium, Plus or VIP.',
+    invalid_days: 'Duration must be between 1 and 366 days.',
+    no_profile_for_email: 'This account has not finished creating a Chahat profile yet.',
+    no_active_plan: 'This member has no active plan to remove.',
     no_account_for_email: 'No Chahat account uses that email. The person must sign up (or sign in once) first.',
   };
   return map[c] ?? 'Request failed. Check that the admin-api function is deployed.';

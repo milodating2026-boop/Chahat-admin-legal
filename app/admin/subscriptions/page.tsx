@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { PageHead, StateBox, fmt, short } from '@/components/layout/AdminShell';
 import { useAdminData } from '@/services/useAdminData';
+import { GrantPlanCard } from '@/components/admin/GrantPlanCard';
 
 const STATE_STYLE: Record<string, string> = { ACTIVE: 'bg-emerald-50 text-emerald-700', IN_GRACE_PERIOD: 'bg-amber-50 text-amber-700', CANCELED: 'bg-slate-100 text-slate-600', EXPIRED: 'bg-slate-100 text-slate-600', REVOKED: 'bg-rose-50 text-rose-700', REFUNDED: 'bg-rose-50 text-rose-700' };
 const OUTCOME_STYLE: Record<string, string> = { verified: 'bg-emerald-50 text-emerald-700', pending: 'bg-amber-50 text-amber-700', failed: 'bg-rose-50 text-rose-700', retryable: 'bg-slate-100 text-slate-600' };
@@ -16,6 +17,7 @@ export default function PaymentsPage() {
   return (
     <div className="space-y-6">
       <PageHead title="Payments & Transactions" subtitle="Verified Google Play purchases, and every purchase attempt (including failed and pending ones). Purchase tokens are never shown. Refunds are made in Google Play Console; they appear here as REVOKED once Google notifies the app." />
+      <GrantPlanCard />
       <StateBox loading={summary.loading} error={summary.error} />
       {s && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

@@ -102,6 +102,21 @@ const ageOf = (dob?: string | null) => {
 
 export function _resetRateLimit() { hits.clear(); }
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const GRANTABLE_TIERS = ["premium", "plus", "vip"] as const;
+
+/** Finds an auth user by email (case-insensitive). Pages through at most 20,000 accounts. */
+async function findUserByEmail(sb: any, email: string): Promise<any | null> {
+  for (let page = 1; page <= 20; page++) {
+    const { data: lst, error } = await sb.auth.admin.listUsers({ page, perPage: 1000 });
+    if (error) throw error;
+    const hit = (lst?.users ?? []).find((x: any) => (x.email ?? "").toLowerCase() === email);
+    if (hit) return hit;
+    if ((lst?.users ?? []).length < 1000) break;
+  }
+  return null;
+}
+
 export async function handleAdminApi(req: Request, deps: Deps): Promise<Response> {
   const h = cors(req, deps.env.allowedOrigins);
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: h });
@@ -262,14 +277,8 @@ export async function handleAdminApi(req: Request, deps: Deps): Promise<Response
         if (needAdmin()) return json({ error: "forbidden" }, 403, h);
         const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
         const grant = body.grant === true;
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200) return json({ error: "invalid_email" }, 400, h);
-        let target: any = null;
-        for (let page = 1; page <= 20 && !target; page++) {
-          const { data: lst, error } = await sb.auth.admin.listUsers({ page, perPage: 1000 });
-          if (error) throw error;
-          target = (lst?.users ?? []).find((x: any) => (x.email ?? "").toLowerCase() === email) ?? null;
-          if ((lst?.users ?? []).length < 1000) break;
-        }
+        if (!EMAIL_RE.test(email) || email.length > 200) return json({ error: "invalid_email" }, 400, h);
+        const target = await findUserByEmail(sb, email);
         if (!target) return json({ error: "no_account_for_email" }, 404, h);
         if (target.id === uid) return json({ error: "cannot_target_self" }, 400, h);
         const { data: tr } = await sb.from("user_roles").select("role").eq("user_id", target.id);
@@ -285,6 +294,68 @@ export async function handleAdminApi(req: Request, deps: Deps): Promise<Response
         }
         await audit(grant ? "moderator_added" : "moderator_removed", target.id, email);
         return json({ ok: true }, 200, h);
+      }
+
+      // Admins can give any member Premium, Plus or VIP for a number of days, or remove a plan, by email.
+      // Writes the same user_subscriptions row the app and server already use for entitlements (source_order_id
+      // null = granted by staff, not bought). Every change is audited; if the audit fails the change is undone.
+      case "lookup_subscription": {
+        if (needAdmin()) return json({ error: "forbidden" }, 403, h);
+        const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
+        if (!EMAIL_RE.test(email) || email.length > 200) return json({ error: "invalid_email" }, 400, h);
+        const target = await findUserByEmail(sb, email);
+        if (!target) return json({ error: "no_account_for_email" }, 404, h);
+        const [{ data: prof }, { data: sub, error }] = await Promise.all([
+          sb.from("profiles").select("id,name,status").eq("id", target.id).maybeSingle(),
+          sb.from("user_subscriptions").select("tier,status,starts_at,expires_at,source_order_id").eq("user_id", target.id).maybeSingle(),
+        ]);
+        if (error) throw error;
+        return json({ userId: target.id, email, name: prof?.name ?? null, hasProfile: !!prof,
+          subscription: sub ? { tier: sub.tier, status: sub.status, startsAt: sub.starts_at, expiresAt: sub.expires_at,
+            grantedByStaff: !sub.source_order_id } : null }, 200, h);
+      }
+
+      case "grant_subscription": {
+        if (needAdmin()) return json({ error: "forbidden" }, 403, h);
+        const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
+        const tier = body.tier;
+        const remove = tier === "free";
+        const reason = typeof body.reason === "string" ? body.reason.trim() : "";
+        if (!EMAIL_RE.test(email) || email.length > 200) return json({ error: "invalid_email" }, 400, h);
+        if (!remove && !GRANTABLE_TIERS.includes(tier)) return json({ error: "invalid_tier" }, 400, h);
+        const days = Number(body.days);
+        if (!remove && (!Number.isInteger(days) || days < 1 || days > 366)) return json({ error: "invalid_days" }, 400, h);
+        if (reason.length < 3 || reason.length > 400) return json({ error: "reason_required" }, 400, h);
+
+        const target = await findUserByEmail(sb, email);
+        if (!target) return json({ error: "no_account_for_email" }, 404, h);
+        const { data: prof } = await sb.from("profiles").select("id").eq("id", target.id).maybeSingle();
+        if (!prof) return json({ error: "no_profile_for_email" }, 404, h);
+
+        const { data: before, error: bErr } = await sb.from("user_subscriptions").select("*").eq("user_id", target.id).maybeSingle();
+        if (bErr) throw bErr;
+        const nowIso = new Date().toISOString();
+        let row: Record<string, unknown>;
+        if (remove) {
+          if (!before || before.status !== "active") return json({ error: "no_active_plan" }, 409, h);
+          row = { user_id: target.id, tier: before.tier, status: "cancelled", expires_at: nowIso, auto_renew: false, updated_at: nowIso };
+        } else {
+          row = { user_id: target.id, tier, status: "active", starts_at: nowIso,
+            expires_at: new Date(Date.now() + days * 86400_000).toISOString(), auto_renew: false,
+            source_order_id: null, updated_at: nowIso };
+        }
+        const { data: saved, error } = await sb.from("user_subscriptions").upsert(row, { onConflict: "user_id" })
+          .select("tier,status,starts_at,expires_at").single();
+        if (error) throw error;
+        const note = remove ? `${email}: plan removed. ${reason}` : `${email}: ${tier} for ${days} days. ${reason}`;
+        const { error: aErr } = await audit(remove ? "subscription_revoked" : "subscription_granted", target.id, note);
+        if (aErr) { // no unaudited change
+          if (before) await sb.from("user_subscriptions").upsert(before, { onConflict: "user_id" });
+          else await sb.from("user_subscriptions").delete().eq("user_id", target.id);
+          throw aErr;
+        }
+        return json({ ok: true, userId: target.id, subscription: { tier: saved.tier, status: saved.status,
+          startsAt: saved.starts_at, expiresAt: saved.expires_at, grantedByStaff: true } }, 200, h);
       }
 
       case "list_subscriptions": {
